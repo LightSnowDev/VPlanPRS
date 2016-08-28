@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#303030</color>
+    <color name="statusBarColor">#719d1a</color>
+    <color name="customNavBarColor">#1f1f1f</color>
+</resources>

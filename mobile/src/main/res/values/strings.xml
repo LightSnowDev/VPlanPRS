@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">V-Plan PRS</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="MainActivityName">Vertretungsplan PRS</string>
+
+    <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
+        send downstream messages to this app.</string>
+    <string name="registering_message">Generating InstanceID token...</string>
+    <string name="token_error_message">An error occurred while either fetching the InstanceID token,
+        sending the fetched token to the server or subscribing to the PubSub topic. Please try
+        running the sample again.</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_first_start">FirstStartActivity</string>
+
+    <!-- Shared Preferences Values-->
+    <string name="settingUpdateBool">settingUpdateBool</string>
+    <string name="settingClassName">settingClassName</string>
+    <string name="settingFirstStart">"settingFirstStart"</string>
+    <string name="settingHTMLStorage">"settingHTMLStorage"</string>
+
+
+    <string name="stufen_default">Choose a country</string>
+    <string-array name="stufen_arrays">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+    </string-array>
+
+    <string name="klasse_default">Choose a country</string>
+    <string-array name="klasse_arrays">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string name="zweig_default">Choose a country</string>
+    <string-array name="zweig_arrays">
+        <item>G</item>
+        <item>R</item>
+        <item>H</item>
+    </string-array>
+
+    <string name="drawer_title1">Start</string>
+    <string name="drawer_title2">Vertretungsplan Heute</string>
+    <string name="drawer_title3">Vertretungsplan Morgen</string>
+    <string name="drawer_title4">Stundenplan</string>
+    <string name="drawer_title5">Einstellungen</string>
+
+    <string name="names"><![CDATA[<p><h2>List of Names:</h2></p><p>&#8226;William<br />&#8226;Paul<br />&#8226;Julie<br />&#8226;Rita</p>]]></string>
+</resources>

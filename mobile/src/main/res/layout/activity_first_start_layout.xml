@@ -1,0 +1,434 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".FirstStartActivity">
+
+
+    <LinearLayout
+        android:id="@+id/firstStart_topLevelLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.3"
+
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/lalala"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/ColorPrimaryDark">
+
+                <TextView
+                    android:id="@+id/firstStart_textView_Header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
+                    android:text="Willkommen"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#ffffff"
+                    android:textSize="32dp" />
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/box_shaddow"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page1_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/firstStart_Page1_textView_firstExplanation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:alpha="1"
+                    android:editable="false"
+                    android:text="Klasse, dass du die App runtergeladen hast. Wir setzten jetzt noch schnell ein paar Einstellungen."
+                    android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="visible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page2_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                android:visibility="gone">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/firstStart_Page2_firstText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="50dp"
+                            android:alpha="1"
+                            android:editable="false"
+                            android:text="Neue Features in dieser Version:"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/firstStart_Page2_secondText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/textView9"
+                            android:layout_alignStart="@+id/textView9"
+                            android:layout_below="@+id/textView9"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:editable="false"
+                            android:text="1. Neues Design\n2. Automatische Benachrichtigung bei neuen Vertretungsstunden\n3. Die Schülervertretung (SV) ist nun vertreten."
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/firstStart_Page2_thirdText_expandable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/textView9"
+                            android:layout_alignStart="@+id/textView9"
+                            android:layout_below="@+id/textView9"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:editable="false"
+                            android:text="Alte Neuerungen:\n\n1. Neues Design\n2. Automatische Benachrichtigung bei neuen Vertretungsstunden\n3. Die Schülervertretung (SV) ist nun vertreten."
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/firstStart_Page2_Button_expandable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/textView10"
+                            android:layout_alignStart="@+id/textView10"
+                            android:layout_below="@+id/textView10"
+                            android:layout_marginTop="20dp"
+                            android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            android:text="Alte Neuigkeiten" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page3_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:alpha="1"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/firstStart_Page2_textView_firstExplanation2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="50dp"
+                    android:editable="false"
+                    android:text="Wir brauchen nun die Anmeldedaten des Vertretungsplans. Damit stellen wir sicher, dass nicht jeder Zugriff auf ihn hat."
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/firstStart_Page2_textView_firstExplanation2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/firstStart_Page1_textView_firstExplanation2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Benutzername"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <EditText
+                            android:id="@+id/firstStart_Page2_editTextBenutzername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:text="vplan" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/firstStart_Page1_textView_firstExplanation2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Passwort"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <EditText
+                            android:id="@+id/firstStart_Page2_editTextPasswort"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:text="2011" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page4_firstFilter_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="10"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Willst Du alle Vertretungsstunden sehen, oder sollen nur Deine Vertretungsstunden angezeigt werden?"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Switch
+                    android:id="@+id/firstStart_Page4_first_filter_Switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView44"
+                    android:layout_alignStart="@+id/textView44"
+                    android:layout_below="@+id/textView44"
+                    android:layout_marginTop="10dp"
+                    android:text="Vertretungsstunden filtern "
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page4_secondsChoose_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:text="In welche Klasse gehst du?\nWir brauchen die Daten, damit nur deine Vertretungsstunden angezeigt werden."
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@+id/spinner2"
+                    android:layout_toLeftOf="@+id/spinner2"
+                    android:entries="@array/stufen_arrays"
+                    android:prompt="@string/stufen_default"
+                    android:background="#FAFAFA" />
+
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@+id/spinner2"
+                    android:layout_toRightOf="@+id/spinner2"
+                    android:entries="@array/klasse_arrays"
+                    android:prompt="@string/klasse_default"
+                    android:background="#FAFAFA" />
+
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:entries="@array/zweig_arrays"
+                    android:prompt="@string/zweig_default"
+                    android:background="#FAFAFA" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page5_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="10"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Willst Du benachrichtigt werden, wenn neue Vertretungsstunden für Dich gefunden wurden?"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Switch
+                    android:id="@+id/firstStart_Page5_Switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView5"
+                    android:layout_alignStart="@+id/textView5"
+                    android:layout_below="@+id/textView5"
+                    android:layout_marginTop="10dp"
+                    android:text="Automatisch überprüfen " />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstStart_Page6_MainRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Das war&apos;s schon. Du kannst nun endlich die App nutzen.\n\nIn den Einstellungen findest Du weitere Hinweise, falls Du noch Fragen hast."
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#0a000000">
+
+            <Button
+                android:id="@+id/button_weiter"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/firstStart_progressBar"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:text="weiter" />
+
+            <ProgressBar
+                android:id="@+id/firstStart_progressBar"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="-6dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
+                android:progressBackgroundTint="#f0f0f0"
+                android:progressTint="#1ca268" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

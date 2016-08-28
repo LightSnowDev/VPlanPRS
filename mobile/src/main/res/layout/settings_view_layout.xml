@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:padding="16dp"
+    android:layout_marginBottom="2dp">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch_setting"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:checked="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Text"
+        android:id="@+id/textView_settings_main"
+        android:layout_gravity="left|center"
+        android:layout_alignBottom="@+id/switch1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="32dp"
+        android:textColor="#1c1c1c"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Das ist eine Beispielbeschreibung, sie soll lang und langweilig sein."
+        android:id="@+id/textView_settings_second"
+        android:layout_gravity="center"
+        android:layout_below="@+id/textView_settings_main"
+        android:layout_alignLeft="@+id/textView_settings_main"
+        android:layout_alignStart="@+id/textView_settings_main"
+        android:layout_marginRight="60dp"
+        android:textColor="#555555"
+        android:textSize="18dp" />
+
+</RelativeLayout>
