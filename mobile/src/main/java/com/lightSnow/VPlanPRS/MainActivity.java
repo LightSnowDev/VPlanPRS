@@ -229,12 +229,18 @@ public class MainActivity extends AppCompatActivity {
         prs.setIfProgressDialogIsShown(true);
         prs.addOnVPlanResultEvent(new PRS.OnVPlanResultEvent() {
             @Override
-            public void VPlanResultEvent(List<Vertretungsstunde> result, boolean success) {
+            public void VPlanResultEvent(List<Vertretungsstunde> alleStunden,final boolean changedKlassenSpecificData, boolean success) {
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "newVPlan: " + String.valueOf(changedKlassenSpecificData), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 //check if vplan fragment is visible
                 Fragment myFragment = (Fragment) getFragmentManager().findFragmentByTag("fragment");
                 if (myFragment != null && myFragment instanceof fragmentVertretungsplan && myFragment.isVisible()) {
                     //load the vplan items and show them
-                    ((fragmentVertretungsplan) myFragment).showVplanViews(result);
+                    ((fragmentVertretungsplan) myFragment).showVplanViews(alleStunden);
                 }
             }
         });

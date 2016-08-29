@@ -18,7 +18,7 @@ import com.lightSnow.VPlanPRS.items.SettingView;
 import com.lightSnow.VPlanPRS.items.VertretungsplanView;
 
 /**
- * Created by Jonathan on 05.01.2016.
+ * Created by Jonathan Schwarzenböck on 05.01.2016.
  */
 public class fragmentSettings  extends Fragment {
     @Override

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.widget.Toast;
 
 import com.lightSnow.VPlanPRS.classes.Vertretungsstunde;
+import com.lightSnow.VPlanPRS.helper.SensibleDataHelper;
 import com.lightSnow.VPlanPRS.helper.StorageHelper;
 
 import org.jsoup.Jsoup;
@@ -20,7 +22,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by Jonathan on 24.08.2016.
+ * Created by Jonathan Schwarzenböck on 24.08.2016.
  */
 public class PRS {
 
@@ -46,7 +48,7 @@ public class PRS {
                 if (success)
                     parseLinks(result);
                 else
-                    RunVPlanResultEvent(null, false);
+                    RunVPlanResultEvent(null, false, false);
             }
         });
         HashMap loginData = new HashMap();
@@ -71,7 +73,7 @@ public class PRS {
                 @Override
                 public void recievedEvent(String result, boolean success) {
                     if (success) {
-                        String savedklasse = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE,activity);
+                        String savedklasse = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE, activity);
                         for (Vertretungsstunde vStunde : parseSingleVPlan(result)) {
                             //filter the Klassen
                             if (StorageHelper.loadBooleanFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE_FILTER, activity)) {
@@ -82,19 +84,18 @@ public class PRS {
                             }
                         }
                     } else
-                        RunVPlanResultEvent(null, false);
+                        RunVPlanResultEvent(null, false, false);
                     counter.decrementAndGet();
                     if (counter.intValue() == 0) {
                         //all vplans are parsed
-                        saveVertretungsstunden(vStunden, activity);
-                        RunVPlanResultEvent(vStunden, true);
+                        List<Vertretungsstunde> lastParsedVPlan = loadVertretungsstundenFromStorrage();
+                        boolean newVplan = !Vertretungsstunde.areVertretungsstundenTheSame(lastParsedVPlan, vStunden);
+                        saveVertretungsstundenToStorrage(vStunden, activity);
+                        RunVPlanResultEvent(vStunden, newVplan, true);
                     }
                 }
             });
-            HashMap loginData = new HashMap();
-            loginData.put("name", "vplan");
-            loginData.put("password", "2011");
-            download.download(currentLink, "vplan", "2011");
+            download.download(currentLink, SensibleDataHelper.prsName, SensibleDataHelper.prsPassword);
         }
     }
 
@@ -128,13 +129,33 @@ public class PRS {
     }
     //endregion
 
-    private String saveVertretungsstunden(List<Vertretungsstunde> vertretungsstunden, Context activity) {
+    private String saveVertretungsstundenToStorrage(List<Vertretungsstunde> vertretungsstunden, Context activity) {
         String all = "";
         for (Vertretungsstunde vStunde : vertretungsstunden) {
-            all += vStunde.toString() + "|";
+            all += vStunde.toString() + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_ITEM;
         }
-        StorageHelper.saveToSharedPreferences("vertretungsstunden", all, activity);
+        StorageHelper.saveToSharedPreferences(StorageHelper.VPLAN_LIST, all, activity);
         return all;
+    }
+
+    private List<Vertretungsstunde> loadVertretungsstundenFromStorrage() {
+        List<Vertretungsstunde> output = new ArrayList<>();
+        try {
+            String savedString = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_LIST, activity);
+            String[] splitted = savedString.split(StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_ITEM);
+            for (String vStundeString : splitted) {
+                if (vStundeString != null && !vStundeString.equals("") && !vStundeString.equals(" ") && !vStundeString.equals("-")) {
+                    output.add(new Vertretungsstunde(vStundeString));
+                }
+            }
+            return output;
+        } catch (Exception e) {
+            return new ArrayList<Vertretungsstunde>();
+        }
+    }
+
+    private void checkIfVPlanIsNew(List<Vertretungsstunde> vPlanList) {
+
     }
 
     private void setFilterKlasse(String klasse) {
@@ -184,17 +205,16 @@ public class PRS {
         mOnVPlanResultlistenerList.remove(listener);
     }
 
-    protected void RunVPlanResultEvent(List<Vertretungsstunde> result, boolean success) {
+    protected void RunVPlanResultEvent(List<Vertretungsstunde> alleStunden, boolean changedKlassenSpecificData, boolean success) {
         if (showprogressDialogBoolean)
             progressDialog.dismiss();
         for (OnVPlanResultEvent event : mOnVPlanResultlistenerList) {
-            event.VPlanResultEvent(result, success);
+            event.VPlanResultEvent(alleStunden, changedKlassenSpecificData, success);
         }
     }
 
     public interface OnVPlanResultEvent {
-        void VPlanResultEvent(List<Vertretungsstunde> result, boolean success);
+        void VPlanResultEvent(List<Vertretungsstunde> alleStunden, boolean changedKlassenSpecificData, boolean success);
     }
     //endregion
-
 }

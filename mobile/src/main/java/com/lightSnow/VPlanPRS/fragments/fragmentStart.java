@@ -19,7 +19,7 @@ import com.lightSnow.VPlanPRS.R;
 import java.util.Random;
 
 /**
- * Created by Jonathan on 02.01.2016.
+ * Created by Jonathan Schwarzenböck on 02.01.2016.
  */
 public class fragmentStart extends Fragment {
     @Override

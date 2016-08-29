@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Neuer Lehrer: Maier\nAlter Lehrer: Frau Bögel\nNeuer Raum: G103\nAlter Raum: F123\nBetroffene Klasse(n): 6G3, 7H4"
-        android:id="@+id/vplan_item_textView_moreInformation2"
+        android:id="@+id/vertretungsplan_view_textView_moreInformation2"
         android:textSize="16dp"
         android:layout_below="@+id/vertretungsplan_view_textView_headline"
         android:layout_alignParentLeft="true"

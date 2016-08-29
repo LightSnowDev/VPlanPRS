@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jonathan on 05.01.2016.
+ * Created by Jonathan Schwarzenböck on 05.01.2016.
  */
 public class fragmentVertretungsplan extends Fragment {
     @Override

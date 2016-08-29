@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="VPlanPRS/ListItem.cs">
+    <Files>
+      <File FileName="VPlanPRS/MainActivity.cs" Line="31" Column="148" />
+      <File FileName="VPlanPRS/ListItem.cs" Line="120" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="VPlanPRS/MainActivity.cs" line="103" offsetX="849" offsetY="1528" expression="PageCounter" liveUpdate="False" />
+    <Watch file="VPlanPRS/MainActivity.cs" line="105" offsetX="848" offsetY="1554" expression="toAnalysePublic" liveUpdate="False" />
+    <Watch file="VPlanPRS/ListItem.cs" line="113" offsetX="520" offsetY="1680" expression="line" liveUpdate="False" />
+    <Watch file="VPlanPRS/MainActivity.cs" line="440" offsetX="705" offsetY="6548" expression="LastPageIds" liveUpdate="False" />
+    <Watch file="VPlanPRS/MainActivity.cs" line="42" offsetX="585" offsetY="603" expression="LastPageIds" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.ItemProperties.VPlanPRS MonoForAntroid.PreferredDevice="Nexus 4" MonoForAntroid.PreferredTheme="Theme.Holo.Light.CompactMenu" AndroidDeviceId-Debug="192.168.2.133:5555" AndroidDeviceId-Release="192.168.2.177:5555" />
+</Properties>

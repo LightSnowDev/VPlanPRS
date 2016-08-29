@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "173536822732",
+    "firebase_url": "https://v-plan-prs.firebaseio.com",
+    "project_id": "v-plan-prs",
+    "storage_bucket": "v-plan-prs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173536822732:android:4c05e9100aa6beb2",
+        "android_client_info": {
+          "package_name": "com.lightSnow.VPlanPRS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173536822732-lol737hb53a6cmagi64r17ijodk6tes3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lightSnow.VPlanPRS",
+            "certificate_hash": "F09107A58A0F606BEF692890681C2DD73F9C8BC8"
+          }
+        },
+        {
+          "client_id": "173536822732-irheq3bn53lkkpgi2mjgfpkh1hmhulq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj7fdiQdUek7QpX0BZOHAmtW1u8ftNZ1k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

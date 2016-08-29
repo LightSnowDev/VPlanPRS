@@ -93,7 +93,6 @@ public class RegistrationIntentService extends IntentService {
     }
 
     private void sendGCMServerData(String urlString, Context context){
-        //todo download with okhttp3
         DownloadHelper downloadHelper = new DownloadHelper(context);
         downloadHelper.FIXED_URL = SensibleDataHelper.serverPath;
         downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {

@@ -7,7 +7,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
 /**
- * Created by Jonathan on 26.06.2016.
+ * Created by Jonathan Schwarzenböck on 26.06.2016.
  */
 public class AnimationHelper {
 

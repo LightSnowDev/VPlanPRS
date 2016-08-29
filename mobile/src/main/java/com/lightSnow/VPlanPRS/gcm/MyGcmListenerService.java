@@ -60,8 +60,8 @@ public class MyGcmListenerService extends GcmListenerService {
         PRS prs = new PRS(this.getBaseContext());
         prs.addOnVPlanResultEvent(new PRS.OnVPlanResultEvent() {
             @Override
-            public void VPlanResultEvent(List<Vertretungsstunde> result, boolean success) {
-                sendNotification(result.size());
+            public void VPlanResultEvent(List<Vertretungsstunde> alleStunden, boolean changedKlassenSpecificData, boolean success) {
+                sendNotification(alleStunden.size());
             }
         });
         prs.downloadLinks();

@@ -33,7 +33,7 @@ import okhttp3.Route;
 import okhttp3.TlsVersion;
 
 /**
- * Created by Jonathan on 02.05.2016.
+ * Created by Jonathan Schwarzenböck on 02.05.2016.
  * <p>
  * Source: http://stackoverflow.com/questions/13196234/simple-parse-json-from-url-on-android-and-display-in-listview
  */

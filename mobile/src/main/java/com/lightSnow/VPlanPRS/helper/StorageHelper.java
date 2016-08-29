@@ -20,7 +20,7 @@ import java.io.Writer;
 public class StorageHelper {
 
     /*
-     * Wichtige Varibalen für die App
+     * Speicher Varibalen
      */
     public final static String log_filename = "prs_log";
     public final static String VPLAN_LIST = "vplan_list";
@@ -34,6 +34,11 @@ public class StorageHelper {
      */
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    /*
+     * Allgemeine Variablen
+     */
+    public static final String SPLIT_SYMBOL_VERTRETUNGSSTUNDE_ITEM = "⦿";
+    public static final String SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS = "│";
 
     /*
      * Einen String möglichst sicher speichern. Dabei werdern 2 Methoden verwendet:
