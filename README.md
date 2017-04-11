@@ -1,9 +1,15 @@
+![alt tag](https://raw.githubusercontent.com/LightSnowDev/VPlanPRS/master/slim.jpg)
+
 # VPlanPRS
-Eine App für Android die den Vertretungsplan des Phillip-Reis-Schule anzeigt.
+Der Vertretungsplan der Phillip-Reis-Schule Friedrichsdorf als Android App.
 
 ### Features
-  * Automatische aktualisierung mit GCM Server
+  * Automatische Aktualisierung mit GCM Server
   * Filtern nach Klasse
+  * Nachnamen der Lehrer
+  * Busfahrplan
+  * Stundenplan
+  * Offlinespeicher
 
 ### Used Dependencies
    * firebase-messaging
@@ -12,18 +18,16 @@ Eine App für Android die den Vertretungsplan des Phillip-Reis-Schule anzeigt.
    * gms:play-services-gcm
    * jsoup
    * mikepenz:materialdrawer
-   * rahatarmanahmed:circularprogressview
 
 ### Development
 
-Want to contribute? Great!
+Willst du helfen? Super.
 
 ### Todos
 
  - Write Tests
  - Rethink Github Save
- - Add Code Comments
- - Add Night Mode
+ - Add code comments
 
 ### License
 Die App ist unterliegt der [GPL 3.0](chttps://www.gnu.org/licenses/gpl-3.0.de.html).
