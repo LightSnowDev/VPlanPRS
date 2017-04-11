@@ -1,0 +1,31 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/heute_shortcut"
+        android:shortcutDisabledMessage="@string/shortcut_heute_disabled"
+        android:shortcutId="heuteShortcut"
+        android:shortcutLongLabel="@string/shortcut_heute_long"
+        android:shortcutShortLabel="@string/shortcut_heute_short">
+        <intent
+            android:action="android.intent.action.heute"
+            android:targetClass="com.lightSnowDev.VPlanPRS2.MainActivity"
+            android:targetPackage="com.lightSnowDev.VPlanPRS2" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/morgen_shortcut"
+        android:shortcutDisabledMessage="@string/shortcut_morgen_disabled"
+        android:shortcutId="morgenShortcut"
+        android:shortcutLongLabel="@string/shortcut_morgen_long"
+        android:shortcutShortLabel="@string/shortcut_morgen_short">
+        <intent
+            android:action="android.intent.action.morgen"
+            android:targetClass="com.lightSnowDev.VPlanPRS2.MainActivity"
+            android:targetPackage="com.lightSnowDev.VPlanPRS2" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list is what the user sees when they
+             launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e4e4e4"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fragmentStart_CardSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hilfe"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Solltest Du Fragen oder weitere Hilfe brauchen, sende eine E-Mail an Jonathan@lightsnowdev.com"
+                        android:textSize="14sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Wann kommt das Feature ...?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Schreib mir am Besten eine E-Mail und frag nach."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Die App zeigt eine Vertretungsstunde meiner Klasse nicht an?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Das sollte nicht passieren. Bitte schicke mir eine E-Mail mit Screenshots der App und des echten Vertretungsplans."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Wo finde ich die 'Allgemeinen Nachrichten' oder die Klausuren der Schule?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dieses Feature ist noch nicht fertig und wird in den folgenden Monaten nachgereicht."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Welche Daten verwendet die App von mir?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Die App versucht in keinster Weise besondere personenbezogene Daten zu erheben. Die einzigen Daten, die erfasst und verschickt werden, sind: 1. App Versionsnummer, 2. letztes Öffnen der App, 3 Klassenname. Diese Informationen sind nötig, damit die App richtig funktionieren kann."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Kann ich der Nutzung meiner Daten widersprechen?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ja, das ist möglich: Du kannst widersprechen, doch reicht es dazu aus die App zu löschen. Deine Daten werden dann automatisch bei der nächsten Vertretungsplan-Erneuerung gelöscht."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Wie stelle ich die richtige Klasse ein?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bitte trage hier genau den Wert ein, der unter 'Klasse(n)' bei Dir im Vertretungsplan angezeigt wird.
+--Beipiele--:
+Wenn Du in der 5G3 bist trage hier 05G3 ein.
+Wenn Du in der 8H1 bist trage hier 08H1 ein.
+Wenn Du in der 10R1 bist, trage 10R1 ein.
+Wenn Du in der ET7 bist, trage ET7 ein. Du musst hierzu in der ersten Spalte das Leerzeichen ganz unten auswählen.
+Wenn Du in der Q12 bist, trage Q12 ein. In der Oberstufe gibt es keine 'Klassen' mehr.
+Hier werden alle Vertretungsstunden des Jahrgangs angezeigt.
+Allgemeiner Tip: Wähle in der ersten Spalte ganz unten das 'Leerzeichen' aus. Nur so kannst Du z.B. Q12 korrekt eintragen.
+Solltest Du deine Klasse nicht finden, schreibe mir bitte eine E-Mail."
+
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Kannst du eine iOS Version für Apple Geräte programmieren?"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nein. Apple verlangt hohe Gebüren, damit man Apps im App-Store betreiben kann. Zusätzlich dazu macht es Apple einem nicht leicht für iOs zu programmieren. Es wird daher sicher keine iOS Version geben."
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

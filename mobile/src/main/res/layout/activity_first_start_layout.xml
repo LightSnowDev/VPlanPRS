@@ -123,7 +123,7 @@
                             android:layout_marginTop="10dp"
                             android:alpha="1"
                             android:editable="false"
-                            android:text="1. Neues Design\n2. Automatische Benachrichtigung bei neuen Vertretungsstunden\n3. Die Schülervertretung (SV) ist nun vertreten."
+                            android:text="News new"
                             android:textAlignment="center"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:visibility="visible" />
@@ -139,7 +139,7 @@
                             android:layout_marginTop="10dp"
                             android:alpha="1"
                             android:editable="false"
-                            android:text="Alte Neuerungen:\n\n1. Neues Design\n2. Automatische Benachrichtigung bei neuen Vertretungsstunden\n3. Die Schülervertretung (SV) ist nun vertreten."
+                            android:text="News old"
                             android:textAlignment="center"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:visibility="gone" />
@@ -214,7 +214,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_weight="1"
-                            android:text="vplan" />
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -240,7 +242,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_weight="1"
-                            android:text="2011" />
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -274,8 +278,31 @@
                     android:layout_alignStart="@+id/textView44"
                     android:layout_below="@+id/textView44"
                     android:layout_marginTop="10dp"
-                    android:text="Vertretungsstunden filtern "
-                    android:checked="true" />
+                    android:checked="true"
+                    android:text="Vertretungsstunden filtern " />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView44"
+                    android:layout_alignStart="@+id/textView44"
+                    android:layout_below="@+id/firstStart_Page4_first_filter_Switch"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Sollen zusätzlich zu den Kürzeln der Lehrer die bekannten Nachnamen angezeigt werden?"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Switch
+                    android:id="@+id/firstStart_Page4_first_name_lehrer_Switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView44"
+                    android:layout_alignStart="@+id/textView44"
+                    android:layout_below="@+id/textView11"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="Namen zusätzlich anzeigen " />
             </RelativeLayout>
 
             <RelativeLayout
@@ -283,11 +310,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="1"
-                android:visibility="visible">
+                android:visibility="gone">
 
 
-                <TextView
-                    android:id="@+id/textView3"
+                <LinearLayout
+                    android:id="@+id/linearLayout_Page4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -295,41 +322,56 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="50dp"
-                    android:text="In welche Klasse gehst du?\nWir brauchen die Daten, damit nur deine Vertretungsstunden angezeigt werden."
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:orientation="vertical">
 
 
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:layout_alignTop="@+id/spinner2"
-                    android:layout_toLeftOf="@+id/spinner2"
-                    android:entries="@array/stufen_arrays"
-                    android:prompt="@string/stufen_default"
-                    android:background="#FAFAFA" />
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="In welche Klasse gehst du?
+Bitte gebe die Daten so an, wie sie auch im Online-Vertretungsplanangezeigt werden."
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:layout_alignTop="@+id/spinner2"
-                    android:layout_toRightOf="@+id/spinner2"
-                    android:entries="@array/klasse_arrays"
-                    android:prompt="@string/klasse_default"
-                    android:background="#FAFAFA" />
+                </LinearLayout>
 
-
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/textView3"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout_Page4"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="1dp"
                     android:layout_marginTop="40dp"
-                    android:entries="@array/zweig_arrays"
-                    android:prompt="@string/zweig_default"
-                    android:background="#FAFAFA" />
+                    android:background="#bbbbbb"
+                    android:elevation="2dp"
+                    android:padding="2dp">
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:background="#FAFAFA"
+                        android:entries="@array/stufen_arrays"
+                        android:prompt="@string/stufen_default" />
+
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:background="#FAFAFA"
+                        android:entries="@array/zweig_arrays"
+                        android:prompt="@string/zweig_default" />
+
+                    <Spinner
+                        android:id="@+id/spinner3"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:background="#FAFAFA"
+                        android:entries="@array/klasse_arrays"
+                        android:prompt="@string/klasse_default" />
+
+
+                </LinearLayout>
 
 
             </RelativeLayout>
@@ -341,7 +383,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_weight="10"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -363,6 +405,28 @@
                     android:layout_below="@+id/textView5"
                     android:layout_marginTop="10dp"
                     android:text="Automatisch überprüfen " />
+
+                <Switch
+                    android:id="@+id/firstStart_Page5_Switch_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView5"
+                    android:layout_alignStart="@+id/textView5"
+                    android:layout_below="@+id/textView5_2"
+                    android:layout_marginTop="10dp"
+                    android:text="Ton aktivieren " />
+
+                <TextView
+                    android:id="@+id/textView5_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/firstStart_Page5_Switch"
+                    android:layout_alignStart="@+id/firstStart_Page5_Switch"
+                    android:layout_below="@+id/firstStart_Page5_Switch"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Willst Du mit einem Ton benachrichtigt werden, oder soll die App lautlos sein?"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -407,6 +471,38 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="10dp"
                 android:text="weiter" />
+
+            <LinearLayout
+                android:id="@+id/button_help"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/firstStart_progressBar"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="0dp"
+                    android:gravity="center_vertical"
+                    android:text="Hilfe"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="12dp"
+                    android:src="@drawable/ic_help_outline_black_48dp" />
+
+            </LinearLayout>
+
 
             <ProgressBar
                 android:id="@+id/firstStart_progressBar"

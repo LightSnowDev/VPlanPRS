@@ -4,7 +4,10 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/menu_button_reload"
+        android:enabled="true"
         android:icon="@drawable/ic_refresh_white_48dp"
+        android:tag="reloadTag"
         android:title="reload"
+        android:visible="true"
         app:showAsAction="ifRoom"/>
 </menu>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">V-Plan PRS</string>
     <string name="action_settings">Einstellungen</string>
-    <string name="MainActivityName">Vertretungsplan PRS</string>
+    <string name="MainActivityName">V-Plan PRS</string>
 
     <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
         send downstream messages to this app.</string>
@@ -21,15 +21,16 @@
 
     <string name="stufen_default">Choose a country</string>
     <string-array name="stufen_arrays">
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
         <item>10</item>
         <item>11</item>
         <item>12</item>
         <item>13</item>
+        <item></item>
     </string-array>
 
     <string name="klasse_default">Choose a country</string>
@@ -43,20 +44,29 @@
         <item>7</item>
         <item>8</item>
         <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
     </string-array>
 
     <string name="zweig_default">Choose a country</string>
     <string-array name="zweig_arrays">
         <item>G</item>
+        <item>F</item>
         <item>R</item>
         <item>H</item>
+        <item>E</item>
+        <item>ET</item>
+        <item>Q</item>
     </string-array>
 
-    <string name="drawer_title1">Start</string>
-    <string name="drawer_title2">Vertretungsplan Heute</string>
-    <string name="drawer_title3">Vertretungsplan Morgen</string>
-    <string name="drawer_title4">Stundenplan</string>
-    <string name="drawer_title5">Einstellungen</string>
+    <string name="shortcut_heute_long">Vertretungsplan heute</string>
+    <string name="shortcut_heute_short">V-Plan heute</string>
+    <string name="shortcut_heute_disabled">heute deaktiviert</string>
 
-    <string name="names"><![CDATA[<p><h2>List of Names:</h2></p><p>&#8226;William<br />&#8226;Paul<br />&#8226;Julie<br />&#8226;Rita</p>]]></string>
+    <string name="shortcut_morgen_long">Vertretungsplan morgen</string>
+    <string name="shortcut_morgen_short">V-Plan morgen</string>
+    <string name="shortcut_morgen_disabled">morgen deaktiviert</string>
+
 </resources>

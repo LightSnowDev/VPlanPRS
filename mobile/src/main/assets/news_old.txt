@@ -1,0 +1,32 @@
+Alte Neuerungen:
+
+Version 2.2.1
+1. Fehler behoben.
+
+Version 2.2.0
+1. Busfahrplan hinzugefügt.
+2. Zoomen bei Stundenplan & Busfahrplan möglich.
+3. Busfahrplan wird gespeichert.
+4. Nachnamen der Lehrer im Vertretungsplan.
+5. Versionsgeschichte in 'Über diese App'
+6. Kleine Änderungen im Design.
+7. Bugs wurden behoben.
+
+Version 2.1.1
+1. Bugs wurden behoben
+
+Version 2.1.0
+1. Die Förderstufe wurde hinzugefügt.
+2. Einige Fehler wurden behoben.
+3. Die SV kann nun Links anzeigen lassen.
+4. Android 7.1 Shortcuts Unterstützung.
+
+Version 2.0.2
+1. Neues Design.
+2. Automatische Benachrichtigung bei Deinen Vertretungsstunden.
+3. Die Schülervertretung (SV) ist nun vertreten.
+4. Android 7.0 Unterstützung.
+
+Version 2.0.0
+1. Das Programm wurde komplett neugeschrieben.
+2. Die alte Version wurde aus dem Play Store entfernt.

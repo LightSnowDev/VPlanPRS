@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e4e4e4"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
+
+            <ImageView
+                android:id="@+id/imgView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/lightsnowdev_logo_shaddow_jpg" />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fragmentStart_CardSV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Inhalt"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Für die Richtigkeit des Vertretungsplans wird keine Haftung übernommen. Es gilt immer der in der Schule ausgehängte Vertretungsplan. Auch wenn es unwahrscheinlich ist, kann diese App Fehler produzieren. Ein Kontrollaufruf des Original-Vertretungsplans kann deshalb nicht schaden.\n\nFür den Inhalt der Informationen der Schülervertretung ist alleine die Schülervertretung der Philipp-Reis-Schule verantwortlich."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Über mich"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ich war selbst Schüler der PRS und möchte mit dieser App etwas zurück geben.\nDie Schule hatte mir damals untersagt im Unterricht eine App zu entwickeln, so habe ich es kurzerhand selbst getan. Solltest Du Fragen haben, besuche meine Webseite lightsnowdev.com oder schreibe mir eine E-Mail an:\nJonathan@lightsnowdev.com"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Code &amp; Copyright"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Der Quellcode dieser App ist unter 'github.com/LightSnowDev/VPlanPRS' veröffentlicht.\nDer Code unterliegt der GPL 3.0.\nSolltest Du daher Teile dieser App weiterverwenden, veröffentliche bitte den Quellcode und lasse ihn mir zukommen."
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Abhängigkeiten"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Die App basiert auf folgenden Programmen:\n
+   * firebase-messaging\n
+   * firebase-analytics\n
+   * okhttp3\n
+   * afollestad.material-dialogs\n
+   * jsoup\n
+   * mikepenz:materialdrawer"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Version"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/fragmentAbout_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Version: ??"
+                        android:textSize="14sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Versionsgeschichte"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/fragmentAbout_version_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="..."
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

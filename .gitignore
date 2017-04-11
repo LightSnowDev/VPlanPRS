@@ -38,3 +38,8 @@ captures/
 
 # Keystore files
 *.jks
+
+#sensible data
+/mobile/google-services.json
+/mobile/src/main/java/com/lightSnow/VPlanPRS/helper/SensibleDataHelper.java
+/mobile/src/main/java/com/lightSnowDev/VPlanPRS2/helper/SensibleDataHelper.java
