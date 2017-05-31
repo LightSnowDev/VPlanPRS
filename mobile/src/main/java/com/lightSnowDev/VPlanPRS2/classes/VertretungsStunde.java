@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Jonathan Schwarzenböck on 06.01.2016.
  */
-public class Vertretungsstunde {
+public class VertretungsStunde {
 
     private String neuerLehrer;
     private String alterLehrer;
@@ -24,13 +24,13 @@ public class Vertretungsstunde {
     private String vertretungstext;
     private String fach;
     private boolean isSchulnachrichten = false;
-    private Tag tag;
+    private VertretungsTag.Day day;
 
-    public Vertretungsstunde(String Klassen, String Stunden,
+    public VertretungsStunde(String Klassen, String Stunden,
                              String neuerLehrer, String neuerRaum,
                              String alterRaum, String alterLehrer,
                              String Vertretungstext, String Fach,
-                             Tag tag) {
+                             VertretungsTag.Day day) {
         try {
             this.neuerLehrer = neuerLehrer;
             this.alterLehrer = alterLehrer;
@@ -40,13 +40,13 @@ public class Vertretungsstunde {
             this.neuerRaum = neuerRaum;
             this.vertretungstext = Vertretungstext;
             this.fach = Fach;
-            this.tag = tag;
+            this.day = day;
         } catch (Exception e) {
             throw new RuntimeException("Error #100: Fehlerhafte Daten.");
         }
     }
 
-    public Vertretungsstunde(Element e, Tag tag) {
+    public VertretungsStunde(Element e, VertretungsTag.Day day) {
         //in html:  0.Klasse(n)	1. Std.	2.Vertreter	3.Raum	 4.(Raum)	5.(Lehrer)	6.Vertretungs-Text	7.(Fach)	8.(Klasse(n))
         //in klasse: (String Klassen, String Stunden, String neuerLehrer, String neuerRaum, String alterRaum, String alterLehrer, String Vertretungstext, String Fach)
         this(e.child(0).text(),
@@ -57,19 +57,19 @@ public class Vertretungsstunde {
                 e.child(5).text(),
                 e.child(6).text(),
                 e.child(7).text(),
-                tag);
+                day);
     }
 
-    public Vertretungsstunde(String Klassen, String Stunden,
+    public VertretungsStunde(String Klassen, String Stunden,
                              String neuerLehrer, String neuerRaum,
                              String alterRaum, String alterLehrer,
                              String Vertretungstext, String Fach,
-                             String tag) {
+                             String dayString) {
         this(Klassen, Stunden, neuerLehrer, neuerRaum, alterRaum, alterLehrer, Vertretungstext, Fach,
-                Tag.valueOf(tag));
+                VertretungsTag.Day.valueOf(dayString));
     }
 
-    public Vertretungsstunde(String compact) {
+    public VertretungsStunde(String compact) {
         try {
             String[] splitComapct = compact.split(StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS);
             this.klassen = parseKlassen(splitComapct[0]);
@@ -84,30 +84,30 @@ public class Vertretungsstunde {
             this.vertretungstext = splitComapct[6];
             this.fach = splitComapct[7];
 
-            this.tag = Tag.valueOf(splitComapct[8]);
+            this.day = VertretungsTag.Day.valueOf(splitComapct[8]);
         } catch (Exception e) {
             throw new RuntimeException("Error #100: Fehlerhafte Daten.");
         }
     }
 
-    public static Vertretungsstunde.Tag getVertretungsstundeTagFromString(String input) {
+    public static VertretungsTag.Day getVertretungsstundeTagFromString(String input) {
         if (input.equals("heute"))
-            return Tag.heute;
+            return VertretungsTag.Day.heute;
         else if (input.equals("morgen"))
-            return Tag.morgen;
+            return VertretungsTag.Day.morgen;
         else if (input.equals("beide"))
-            return Tag.beide;
+            return VertretungsTag.Day.beide;
         else
             return null;
     }
 
-    public static boolean areVertretungsstundenTheSame(List<Vertretungsstunde> v1, List<Vertretungsstunde> v2) {
+    public static boolean areVertretungsstundenTheSame(List<VertretungsStunde> v1, List<VertretungsStunde> v2) {
         // Optional quick test since size must match
         if (v1.size() != v2.size()) {
             return false;
         }
-        for (Vertretungsstunde stunde1 : v1) {
-            for (Vertretungsstunde stunde2 : v2) {
+        for (VertretungsStunde stunde1 : v1) {
+            for (VertretungsStunde stunde2 : v2) {
                 if (!stunde1.toString().equals(stunde2.toString())) {
                     return false;
                 }
@@ -149,8 +149,8 @@ public class Vertretungsstunde {
         // Die tag = "" default eigenschaft wurde ohne wissen eingefügt. Sie könnte fehler produzieren.
         // Vorher war nur "tag.toString()" vorhanden und hat somit nullpointer exceptions geworfen.
         String tagString = "";
-        if (tag != null)
-            tagString = tag.toString();
+        if (day != null)
+            tagString = day.toString();
         return getKlassenString() + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
                 stunden + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
                 neuerLehrer + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
@@ -163,7 +163,7 @@ public class Vertretungsstunde {
     }
 
     /*
-     * Does this Vertretungsstunde affect inputKlasse?
+     * Does this VertretungsStunde affect inputKlasse?
      */
     public boolean matchesKlasse(String inputKlasse) {
         for (String klasse : klassen) {
@@ -221,6 +221,10 @@ public class Vertretungsstunde {
                 return "Englisch";
             case "PHY":
                 return "Physik";
+            case "PHYB":
+                return "Physik B-LK";
+            case "PHYL":
+                return "Physik LK";
             case "DEU":
                 return "Deutsch";
             case "POW":
@@ -253,6 +257,8 @@ public class Vertretungsstunde {
                 return "Kunst LK";
             case "ENGL":
                 return "Englisch LK";
+            case "ENGB":
+                return "Englisch B-LK";
             case "DEUL":
                 return "Deutsch LK";
             case "GESL":
@@ -275,9 +281,21 @@ public class Vertretungsstunde {
                 return "Chemie B-LK";
             case "INF":
                 return "Informatik";
-            //... needs more subjects
+            case "MUS":
+                return "Musik";
+            case "KTR":
+                return "Kat. Religion";
+            case "SWI":
+                return "Schwimmen";
+            case "AUS":
+                return "Auszeitraum";
+            case "Wahl":
+                return "Wahlfach";
+            case "DSP":
+                return "Darstellendes Spiel";
             case "":
                 return "";
+            //... needs more subjects
             default:
                 return fach;
         }
@@ -626,7 +644,4 @@ public class Vertretungsstunde {
     public String getFach() {
         return fach;
     }
-
-    public enum Tag {heute, morgen, beide}
-
 }
