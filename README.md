@@ -4,7 +4,7 @@
 Der Vertretungsplan der Phillip-Reis-Schule Friedrichsdorf als Android App.
 
 ### Features
-  * Automatische Aktualisierung mit GCM Server
+  * Automatische Aktualisierung mit GCM/Firebase Server
   * Filtern nach Klasse
   * Nachnamen der Lehrer
   * Busfahrplan
@@ -15,19 +15,21 @@ Der Vertretungsplan der Phillip-Reis-Schule Friedrichsdorf als Android App.
    * firebase-messaging
    * okhttp3
    * afollestad.material-dialogs
-   * gms:play-services-gcm
+   * gms:play-services-gcm/firebase-core
    * jsoup
    * mikepenz:materialdrawer
 
-### Development
+### Changelog
 
-Willst du helfen? Super.
+Der Changelog befindet sich als Datei im Projekt:
+
+[Changelog der aktuellen Version](https://github.com/LightSnowDev/VPlanPRS/blob/master/mobile/src/main/assets/news_new.txt)
+
+[Changelog der alten Versionen](https://github.com/LightSnowDev/VPlanPRS/blob/master/mobile/src/main/assets/news_old.txt)
 
 ### Todos
-
- - Write Tests
- - Rethink Github Save
- - Add code comments
+ - Clean up code
+ - rework classes structure
 
 ### License
 Die App ist unterliegt der [GPL 3.0](chttps://www.gnu.org/licenses/gpl-3.0.de.html).
