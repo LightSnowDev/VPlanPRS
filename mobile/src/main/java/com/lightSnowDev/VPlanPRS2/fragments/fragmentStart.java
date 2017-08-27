@@ -14,17 +14,16 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.crash.FirebaseCrash;
 import com.lightSnowDev.VPlanPRS2.BuildConfig;
-import com.lightSnowDev.VPlanPRS2.FirstStartActivity;
 import com.lightSnowDev.VPlanPRS2.MainActivity;
 import com.lightSnowDev.VPlanPRS2.R;
 import com.lightSnowDev.VPlanPRS2.classes.PRS;
-import com.lightSnowDev.VPlanPRS2.classes.Vertretungsstunde;
+import com.lightSnowDev.VPlanPRS2.classes.VertretungsTag;
 import com.lightSnowDev.VPlanPRS2.helper.DownloadHelper;
 import com.lightSnowDev.VPlanPRS2.helper.SensibleDataHelper;
 import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
@@ -32,8 +31,9 @@ import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+
+import static android.view.View.GONE;
 
 /**
  * Created by Jonathan Schwarzenböck on 02.01.2016.
@@ -43,13 +43,9 @@ public class fragmentStart extends Fragment {
     private View mainView = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        //Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_start_layout, container, false);
     }
-
 
     @Override
     public void onResume() {
@@ -61,7 +57,7 @@ public class fragmentStart extends Fragment {
             mainView = getActivity().findViewById(R.id.TopofTheTops);
         else
             return;
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Vertretungsplan PRS");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Startseite");
 
         // onResume has to be finished to draw the GUI. Since we need a drawn GUI to determine weather our fragment is visible we use an event:
         // post is called if the view is drawn, so we prevent a not-visible-collision even tough the fragment is indeed visible.
@@ -72,6 +68,7 @@ public class fragmentStart extends Fragment {
                 loadVPlanOnStart();
                 loadSVNews();
                 loadUpdateNews();
+                initVPlanControls();
                 loadRickNRoll();
             }
         });
@@ -80,18 +77,11 @@ public class fragmentStart extends Fragment {
 
     private void setAndSaveWebViewHTML(String htmlString, boolean save) {
         WebView webView = new WebView(getActivity());
-        /*
-        webView.clearCache(true);
-        webView.clearView();
-        webView.reload();
-        webView.getSettings().setAppCacheEnabled(false);
-        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        */
         webView.loadData(htmlString, "text/html; charset=utf-8", "UTF-8");
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         //disable loading bar
-        mainView.findViewById(R.id.fragmentStart_CardSV_progressBar).setVisibility(View.GONE);
+        mainView.findViewById(R.id.fragmentStart_CardSV_progressBar).setVisibility(GONE);
         //disable scroll input
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -114,67 +104,62 @@ public class fragmentStart extends Fragment {
             StorageHelper.saveToSharedPreferences(StorageHelper.VPLAN_SV_LAST_UPDATE, date, getActivity());
     }
 
-    private void setVPlanNumber(final int input) {
-        ((TextView) mainView.findViewById(R.id.fragmentStart_Card_textView_number)).setText(String.valueOf(input));
-        CardView card = (CardView) mainView.findViewById(R.id.fragmentStart_CardVertretungsstunden);
-        card.setOnClickListener(new View.OnClickListener() {
+    private void initVPlanControls() {
+        if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
+            return;
+
+        if (StorageHelper.loadBooleanFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE_FILTER, getActivity()))
+            ((TextView) getActivity().findViewById(R.id.vplanCard_headlineText)).setText("Vertretungsplan der " +
+                    StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE, getActivity()));
+
+        RelativeLayout card_heute = (RelativeLayout) mainView.findViewById(R.id.fragmentStart_CardVPlan_heute);
+        card_heute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setCustomFragmentandDrawer(1);
+                ((MainActivity) getActivity()).setCustomFragmentandDrawer(2);
+            }
+        });
+        RelativeLayout card_morgen = (RelativeLayout) mainView.findViewById(R.id.fragmentStart_CardVPlan_morgen);
+        card_morgen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).setCustomFragmentandDrawer(3);
             }
         });
     }
 
     private void loadVPlanOnStart() {
         PRS prs = new PRS(getActivity());
-        prs.setTagToFilter(Vertretungsstunde.Tag.heute);
+        if (StorageHelper.loadBooleanFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE_FILTER, getActivity()))
+            prs.setKlasseToFilter(StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE, getActivity()));
         prs.addOnPRSResultEvent(new PRS.OnPRSResultEvent() {
             @Override
-            public void PRSResultEvent(final List<Vertretungsstunde> relatedStunden, List<Vertretungsstunde> unknownStunden,
-                                       boolean changedKlassenSpecificData, final PRS.PRSResultType resultType) {
-                try {
-                    if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
-                        return;
+            public void PRSResultEvent(final PRS prs, final PRS.PRSResultType resultType) {
+                if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
+                    return;
 
-                    MainActivity mA = (MainActivity) getActivity();
-                    ProgressBar progressBar = (ProgressBar) mainView.findViewById(R.id.fragmentStart_Card_progressBar);
-                    if (progressBar == null) {
-                        try {
-                            Fragment myFragment = getFragmentManager().findFragmentByTag("fragment");
-                            FirebaseCrash.log(
-                                    "ProgressBar is null. fragmentTag:" +
-                                            myFragment.getTag() +
-                                            " toString:" + myFragment.toString() +
-                                            " resultType:" + resultType.toString()
-                            );
-                            Toast.makeText(getActivity(), "Fehler beim Laden des Vertretungsplans.\nBitte App neu starten.", Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            FirebaseCrash.report(e);
-                        }
-                        return;
-                    }
+                if (resultType == PRS.PRSResultType.success) {
+                    setHeuteMorgenNumber(prs.getRelatedStunden(VertretungsTag.Day.heute).size(),
+                            prs.getRelatedStunden(VertretungsTag.Day.morgen).size());
+                    ((TextView) mainView.findViewById(R.id.vplanCard_mainText)).setText(
+                            "V-Plan vom: " + prs.getPublishDateString());
 
-                    progressBar.setVisibility(View.GONE);
-                    if (resultType == PRS.PRSResultType.success) {
-                        setVPlanNumber(relatedStunden.size());
-                        ((TextView) mainView.findViewById(R.id.fragmentStart_Card_textView_aktualisierung)).setText("V-Plan vom: " +
-                                StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_LAST_UPDATE_PARSED, getActivity()));
-                    } else if (resultType == PRS.PRSResultType.successButStorrage) {
-                        setVPlanNumber(relatedStunden.size());
-                        ((TextView) mainView.findViewById(R.id.fragmentStart_Card_textView_aktualisierung)).setText("Es konnte kein aktueller Vertretungsplan heruntergeladen werden, da keine Internetverbindung existiert. Lade letzte gespeicherte Version vom:\n" +
-                                StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_LAST_UPDATE_PARSED, getActivity()));
-                    } else /*if (resultType == PRS.PRSResultType.downloadAndStorrageError || resultType == PRS.PRSResultType.parseError)*/ {
-                        setVPlanNumber(0);
-                        ((TextView) mainView.findViewById(R.id.fragmentStart_Card_textView_aktualisierung)).setText("Es konnte kein aktueller Vertretungsplan heruntergeladen werden. Es wurde keine gespeicherte Version gefunden.");
-                    }
+                } else if (resultType == PRS.PRSResultType.successButStorrage) {
+                    setHeuteMorgenNumber(prs.getRelatedStunden(VertretungsTag.Day.heute).size(),
+                            prs.getRelatedStunden(VertretungsTag.Day.morgen).size());
+                    ((TextView) mainView.findViewById(R.id.vplanCard_mainText)).setText(
+                            "Gespeicherter V-Plan vom: " + prs.getPublishDateString());
 
-
-                } catch (Exception e) {
-                    FirebaseCrash.report(e);
+                } else /* downloadAndStorrageError || parseError) */ {
+                    ((TextView) mainView.findViewById(R.id.vplanCard_mainText)).setText(
+                            "V-Plan konnte nicht geladen werden.");
+                    setHeuteMorgenString("?", "?");
+                    //"Es konnte kein aktueller Vertretungsplan heruntergeladen werden. " +
+                    //"Es wurde keine gespeicherte Version gefunden.");
                 }
             }
         });
-        prs.downloadLinks();
+        prs.downloadPRS();
     }
 
     private void loadSVNews() {
@@ -184,46 +169,39 @@ public class fragmentStart extends Fragment {
         downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {
             @Override
             public void recievedEvent(String resultString, String resultBase64, boolean success) {
-                Log.d("result fStart", String.valueOf(success));
-                try {
-                    if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
-                        return;
+                if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
+                    return;
 
-                    if (success) {
-                        setAndSaveWebViewHTML(resultString, true);
-                        DownloadHelper downloadHelper = new DownloadHelper(getActivity());
-                        downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {
-                            @Override
-                            public void recievedEvent(String resultString, String resultBase64, boolean success) {
-                                if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
-                                    return;
+                if (success) {
+                    setAndSaveWebViewHTML(resultString, true);
+                    DownloadHelper downloadHelper = new DownloadHelper(getActivity());
+                    downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {
+                        @Override
+                        public void recievedEvent(String resultString, String resultBase64, boolean success) {
+                            if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
+                                return;
 
-                                if (success) {
-                                    setDateText(resultString);
-                                } else {
-                                    setAndSaveSVDate("??", false);
-                                }
+                            if (success) {
+                                setDateText(resultString);
+                            } else {
+                                setAndSaveSVDate("??", false);
                             }
-                        });
-                        downloadHelper.setIfProgressDialogIsShown(false);
-                        downloadHelper.FIXED_URL = SensibleDataHelper.PRIVATE_SERVER_PATH_ROOT_DIR;
-                        downloadHelper.download(SensibleDataHelper.PRIVATE_SERVER_PATH_SV_NEWS_DATE_DIR, SensibleDataHelper.PRIVATE_SERVER_USERNAME, SensibleDataHelper.PRIVATE_SERVER_PASSWORD);
-                    } else {
-                        //try to laod old information
-                        String oldDate = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_SV_LAST_UPDATE, getActivity());
-                        String oldHTML = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_SV_HTML, getActivity());
-                        Log.d("result fStart oldDate", oldDate);
-                        Log.d("result fStart oldHTML", oldHTML);
-                        if (!oldDate.isEmpty() && !oldHTML.isEmpty()) {
-                            setAndSaveSVDate(oldDate, false);
-                            setAndSaveWebViewHTML(oldHTML, false);
-                        } else {
-                            setAndSaveSVDate("??", false);
-                            setAndSaveWebViewHTML("Nachrichten konnten nicht geladen werden.", false);
                         }
+                    });
+                    downloadHelper.setIfProgressDialogIsShown(false);
+                    downloadHelper.FIXED_URL = SensibleDataHelper.PRIVATE_SERVER_PATH_ROOT_DIR;
+                    downloadHelper.download(SensibleDataHelper.PRIVATE_SERVER_PATH_SV_NEWS_DATE_DIR, SensibleDataHelper.PRIVATE_SERVER_USERNAME, SensibleDataHelper.PRIVATE_SERVER_PASSWORD);
+                } else {
+                    //try to laod old information
+                    String oldDate = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_SV_LAST_UPDATE, getActivity());
+                    String oldHTML = StorageHelper.loadStringFromSharedPreferences(StorageHelper.VPLAN_SV_HTML, getActivity());
+                    if (!oldDate.isEmpty() && !oldHTML.isEmpty()) {
+                        setAndSaveSVDate(oldDate, false);
+                        setAndSaveWebViewHTML(oldHTML, false);
+                    } else {
+                        setAndSaveSVDate("??", false);
+                        setAndSaveWebViewHTML("Nachrichten konnten nicht geladen werden.", false);
                     }
-                } catch (Exception e) {
-                    FirebaseCrash.log(e.getStackTrace().toString());
                 }
             }
         });
@@ -234,14 +212,17 @@ public class fragmentStart extends Fragment {
         try {
             SimpleDateFormat dateParser = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.GERMANY);
             Date date = dateParser.parse(input);
-            // Then convert the Date to a String, formatted as you dd/MM/yyyy
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("d MMMM");
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM.YYYY", Locale.GERMANY);
             setAndSaveSVDate(dateFormatter.format(date), true);
         } catch (Exception e) {
             ((TextView) mainView.findViewById(R.id.fragmentStart_CardSV_textView_date)).setText("Letzte Nachricht vom: ??");
         }
     }
 
+    /**
+     * Überprüfe, ob die App geupdated wurde.
+     * Zeige dann den Changelog als Karte im LinearLayout an.
+     */
     private void loadUpdateNews() {
         if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
             return;
@@ -260,9 +241,10 @@ public class fragmentStart extends Fragment {
                 if (c == null)
                     return;
                 c.setVisibility(View.VISIBLE);
-                ((TextView) mainView.findViewById(R.id.fragmentStart_update_news_textView_version)).setText("Update auf Version " + BuildConfig.VERSION_NAME);
+                ((TextView) mainView.findViewById(R.id.fragmentStart_update_news_textView_version)).setText(
+                        "Update auf Version " + BuildConfig.VERSION_NAME);
                 ((TextView) mainView.findViewById(R.id.fragmentStart_update_news_textView_text)).setText(
-                        FirstStartActivity.readFromAssetFile("news_new.txt", this.getActivity()) +
+                        StorageHelper.readFromAssetFile("news_new.txt", this.getActivity()) +
                                 "\nDu findest diese Informationen auch unter 'Über diese App' im Menü."
                 );
                 mainView.findViewById(R.id.ImageView_update_news_closeIcon).setOnClickListener(new View.OnClickListener() {
@@ -270,8 +252,9 @@ public class fragmentStart extends Fragment {
                     public void onClick(View v) {
                         LayoutTransition layoutTransition = new LayoutTransition();
                         layout.setLayoutTransition(layoutTransition);
-                        StorageHelper.saveToSharedPreferences(StorageHelper.VPLAN_LAST_APP_NAME_VERSION, BuildConfig.VERSION_NAME, getActivity());
-                        mainView.findViewById(R.id.fragmentStart_CardUpdate_news).setVisibility(View.GONE);
+                        StorageHelper.saveToSharedPreferences(
+                                StorageHelper.VPLAN_LAST_APP_NAME_VERSION, BuildConfig.VERSION_NAME, getActivity());
+                        mainView.findViewById(R.id.fragmentStart_CardUpdate_news).setVisibility(GONE);
                     }
                 });
             } catch (Exception e) {
@@ -280,18 +263,20 @@ public class fragmentStart extends Fragment {
         }
     }
 
+    /**
+     * Aprilscherz erscheint nur am 1. April und lädt ein Video als Karte im LinearLayout.
+     */
     private void loadRickNRoll() {
         if (!MainActivity.checkIfFragmentIsActive(fragmentStart.class, getActivity()))
             return;
 
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM", Locale.GERMANY);
         String currentDate = dateFormat.format(new Date());
-        String april = "04/01";
-        //Toast.makeText(getActivity(),april +" | " +currentDate,Toast.LENGTH_LONG).show();
+        String april = "01.04";
         if (!april.equals(currentDate) || !DownloadHelper.isNetworkAvailable(getActivity()))
             return;
 
-        final CardView c = (CardView) mainView.findViewById(R.id.fragmentStart_CardRickNRoll);
+        CardView c = (CardView) mainView.findViewById(R.id.fragmentStart_CardRickNRoll);
         c.setVisibility(View.VISIBLE);
         final Button b = (Button) mainView.findViewById(R.id.Button_RickNRoll);
         final TextView t = (TextView) mainView.findViewById(R.id.TextView_rickNRoll);
@@ -299,22 +284,40 @@ public class fragmentStart extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                b.setVisibility(View.GONE);
-
+                b.setVisibility(GONE);
                 t.setText("APRIL APRIL!1!");
 
-                final WebView webView = (WebView) mainView.findViewById(R.id.webView_rickNRoll);
+                WebView webView = (WebView) mainView.findViewById(R.id.webView_rickNRoll);
                 webView.setVisibility(View.VISIBLE);
                 webView.getSettings().setJavaScriptEnabled(true);
                 int SDK_INT = android.os.Build.VERSION.SDK_INT;
                 if (SDK_INT > 16) {
                     webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
                 }
-                webView.loadUrl("https://app:9WEFGbF2QWyn6@lightsnowdev.com/gcm/public/video.html");
-                //webView.performClick();
+                webView.loadUrl(SensibleDataHelper.PRIVATE_SERVER_APRIL_VIDEO_URL);
             }
         });
+    }
 
+    public void setHeuteMorgenNumber(int i, int j) {
+        try {
+            ((TextView) mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteText)).setText(String.valueOf(i));
+            ((TextView) mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenText)).setText(String.valueOf(j));
+            (mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteProgressBar)).setVisibility(GONE);
+            (mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenProgressBar)).setVisibility(GONE);
+            (mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteText)).setVisibility(View.VISIBLE);
+            (mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenText)).setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            setHeuteMorgenString("?", "?");
+        }
+    }
 
+    public void setHeuteMorgenString(String heute, String morgen) {
+        ((TextView) mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteText)).setText(heute);
+        ((TextView) mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenText)).setText(morgen);
+        (mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteProgressBar)).setVisibility(GONE);
+        (mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenProgressBar)).setVisibility(GONE);
+        (mainView.findViewById(R.id.fragmentStart_CardVPlan_heuteText)).setVisibility(View.VISIBLE);
+        (mainView.findViewById(R.id.fragmentStart_CardVPlan_morgenText)).setVisibility(View.VISIBLE);
     }
 }

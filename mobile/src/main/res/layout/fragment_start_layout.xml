@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentStart_mainScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
+            android:padding="-2dp"
             android:scaleType="fitStart"
             app:srcCompat="@drawable/slim">
 
@@ -30,7 +32,7 @@
             android:id="@+id/fragmentStart_CardRickNRoll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:visibility="gone">
 
             <RelativeLayout
@@ -129,81 +131,199 @@
 
         </android.support.v7.widget.CardView>
 
+
         <android.support.v7.widget.CardView
-            android:id="@+id/fragmentStart_CardVertretungsstunden"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:minHeight="72dp">
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/md_white_1000">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:background="@color/md_white_1000"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/fragmentStart_Card_textView_headline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toEndOf="@+id/fragmentStart_Card_textView_number"
-                    android:layout_toRightOf="@+id/fragmentStart_Card_textView_number"
-                    android:text="Vertretungsstunden heute"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/fragmentStart_Card_textView_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/fragmentStart_Card_textView_headline"
-                    android:layout_alignStart="@+id/fragmentStart_Card_textView_headline"
-                    android:layout_below="@+id/fragmentStart_Card_textView_headline"
-                    android:text="Klicke für mehr Details" />
+                    <TextView
+                        android:id="@+id/vplanCard_headlineText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toEndOf="@+id/textView7"
+                        android:layout_toRightOf="@+id/textView7"
+                        android:text="Vertretungsplan der Schule"
+                        android:textColor="#000000"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:text="VP"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:id="@+id/vplanCard_mainText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/vplanCard_headlineText"
+                        android:layout_alignStart="@+id/vplanCard_headlineText"
+                        android:layout_below="@+id/vplanCard_headlineText"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:text="V-Plan vom: Lade ..." />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@android:color/darker_gray"
+                    android:visibility="gone">
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
 
-                <TextView
-                    android:id="@+id/fragmentStart_Card_textView_number"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/circle_textview"
-                    android:gravity="center"
-                    android:text="3"
-                    android:textColor="#ffffff"
-                    android:textSize="22sp" />
+                    <RelativeLayout
+                        android:id="@+id/fragmentStart_CardVPlan_heute"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/material_drawer_selected_text"
+                        android:padding="5dp">
 
-                <ProgressBar
-                    android:id="@+id/fragmentStart_Card_progressBar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@color/cardview_light_background" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toEndOf="@+id/fragmentStart_CardVPlan_heuteText"
+                            android:layout_toRightOf="@+id/fragmentStart_CardVPlan_heuteText"
+                            android:gravity="center_vertical|center"
+                            android:text="Stunden heute"
+                            android:textColor="@color/cardview_light_background"
+                            android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/fragmentStart_Card_textView_aktualisierung"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/fragmentStart_Card_textView_description"
-                    android:layout_alignStart="@+id/fragmentStart_Card_textView_description"
-                    android:layout_below="@+id/fragmentStart_Card_textView_description"
-                    android:layout_marginTop="4dp"
-                    android:text="lade..." />
 
-            </RelativeLayout>
+                        <TextView
+                            android:id="@+id/fragmentStart_CardVPlan_heuteText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:minWidth="30dp"
+                            android:text="999"
+                            android:textAlignment="center"
+                            android:textColor="@color/cardview_light_background"
+                            android:textSize="26sp"
+                            android:visibility="invisible" />
 
+                        <ProgressBar
+                            android:id="@+id/fragmentStart_CardVPlan_heuteProgressBar"
+                            style="@style/Widget.AppCompat.ProgressBar"
+                            android:layout_width="48dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="2dp"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/md_light_blue_100"
+                            android:indeterminateTintMode="src_atop" />
+
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/darker_gray"
+                        android:visibility="gone">
+
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/fragmentStart_CardVPlan_morgen"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/md_green_500"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toEndOf="@+id/fragmentStart_CardVPlan_morgenText"
+                            android:layout_toRightOf="@+id/fragmentStart_CardVPlan_morgenText"
+                            android:gravity="center_vertical|center"
+                            android:text="Stunden morgen"
+                            android:textColor="@color/cardview_light_background"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/fragmentStart_CardVPlan_morgenText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerVertical="false"
+                            android:layout_marginLeft="4dp"
+                            android:gravity="center"
+                            android:minWidth="30dp"
+                            android:text="999"
+                            android:textAlignment="center"
+                            android:textColor="@color/cardview_light_background"
+                            android:textSize="26sp"
+                            android:visibility="invisible" />
+
+                        <ProgressBar
+                            android:id="@+id/fragmentStart_CardVPlan_morgenProgressBar"
+                            style="@style/Widget.AppCompat.ProgressBar"
+                            android:layout_width="48dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="2dp"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/md_light_green_100"
+                            android:indeterminateTintMode="src_atop" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:id="@+id/fragmentStart_CardUpdate_news"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:visibility="gone">
 
             <RelativeLayout
@@ -312,37 +432,38 @@
 
         </android.support.v7.widget.CardView>
 
+
         <android.support.v7.widget.CardView
             android:id="@+id/fragmentStart_CardSV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="8dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayout"
+                    android:id="@+id/swNewsCard"
                     android:layout_width="match_parent"
-                    android:layout_height="72dp"
+                    android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/person_namxxe"
+                        android:id="@+id/swNewsCard_headlineText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="16dp"
-                        android:layout_toEndOf="@+id/textView7"
-                        android:layout_toRightOf="@+id/textView7"
+                        android:layout_toEndOf="@+id/swNewsCard_BigText"
+                        android:layout_toRightOf="@+id/swNewsCard_BigText"
                         android:text="Schülervertretung Nachrichten"
                         android:textColor="#000000"
                         android:textSize="16dp" />
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/swNewsCard_BigText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -355,9 +476,9 @@
                         android:id="@+id/fragmentStart_CardSV_textView_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/person_namxxe"
-                        android:layout_alignStart="@+id/person_namxxe"
-                        android:layout_below="@+id/person_namxxe"
+                        android:layout_alignLeft="@+id/swNewsCard_headlineText"
+                        android:layout_alignStart="@+id/swNewsCard_headlineText"
+                        android:layout_below="@+id/swNewsCard_headlineText"
                         android:layout_gravity="center_horizontal|bottom"
                         android:text="Letzte Nachricht vom: ??" />
 
@@ -367,7 +488,7 @@
                     android:id="@+id/relativeLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_below="@+id/relativeLayout"
+                    android:layout_below="@+id/swNewsCard"
                     android:background="#cecece"
                     android:elevation="0dp" />
 

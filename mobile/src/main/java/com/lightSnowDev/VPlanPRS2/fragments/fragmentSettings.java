@@ -24,10 +24,7 @@ import com.lightSnowDev.VPlanPRS2.items.SettingView;
  */
 public class fragmentSettings extends Fragment {
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        //Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_settings_layout, container, false);
     }
 
@@ -35,6 +32,10 @@ public class fragmentSettings extends Fragment {
     public void onResume() {
         super.onResume();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Einstellungen");
+        init();
+    }
+
+    private void init() {
         LinearLayout lay = (LinearLayout) getView().findViewById(R.id.linearLayout_settings_main);
         //remove double views. preserve setting "change klasse"
         for (int i = lay.getChildCount() - 1; i >= 0; i--) {
@@ -73,6 +74,11 @@ public class fragmentSettings extends Fragment {
         s4.setMainText("Namen der Lehrer");
         s4.setSecondText("Soll zusätzlich zum Kürzel eines Lehrers der Nachname angezeigt werden?");
         lay.addView(s4, 3);
+
+        SettingView s5 = new SettingView(StorageHelper.VPLAN_COMPACT_NEWS, getActivity());
+        s5.setMainText("V-Plan News ausblenden");
+        s5.setSecondText("Sollen gemeinsame Nachrichten der Schule im Vertretungsplan ausgeblendet werden?");
+        lay.addView(s5, 4);
 
         getView().findViewById(R.id.relativeLayout_settings_setKlassen).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +119,7 @@ public class fragmentSettings extends Fragment {
                                 "Wenn Du in der Q12 bist, trage Q12 ein. In der Oberstufe gibt es keine 'Klassen' mehr." +
                                 "Hier werden alle Vertretungsstunden des Jahrgangs angezeigt.\n\n" +
                                 "Allgemeiner Tip: Wähle in der ersten Spalte ganz unten das 'Leerzeichen' aus. Nur so kannst Du z.B. Q12 korrekt eintragen.\n\n" +
-                                "Solltest Du deine Klasse nicht finden, schreibe mir bitte eine E-Mail. Du findest die E-Mail Adresse später in der App bei 'Über diese App'. Oder du guckst im Play-Store nach meiner Webseite.")
+                                "Solltest Du Deine Klasse nicht finden, schreibe mir bitte eine E-Mail: jonathan@lightsnowdev.com.")
                         .positiveText("Ok")
                         .show();
             }
@@ -126,7 +132,6 @@ public class fragmentSettings extends Fragment {
             }
         });
         final MaterialDialog dialog = dialogBuilder.build();
-
 
         final Spinner spin1 = (Spinner) dialog.getCustomView().findViewById(R.id.spinner1);
         final Spinner spin2 = (Spinner) dialog.getCustomView().findViewById(R.id.spinner2);

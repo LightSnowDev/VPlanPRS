@@ -1,5 +1,8 @@
 Alte Neuerungen:
 
+Version 2.2.2
+1. Fehler behoben.
+
 Version 2.2.1
 1. Fehler behoben.
 

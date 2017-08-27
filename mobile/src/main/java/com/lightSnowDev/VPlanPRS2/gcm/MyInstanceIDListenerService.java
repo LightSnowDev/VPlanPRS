@@ -32,16 +32,6 @@ public class MyInstanceIDListenerService extends FirebaseInstanceIdService {
     public static void sendGCMServerData(String token, Context context) {
         DownloadHelper downloadHelper = new DownloadHelper(context);
         downloadHelper.FIXED_URL = SensibleDataHelper.PRIVATE_SERVER_GCM_PATH_DIR;
-        // no log needed. this works.
-        //if (BuildConfig.DEBUG) {
-        //    downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {
-        //        @Override
-        //        public void recievedEvent(String resultString, String resultBase64, boolean success) {
-        //            if (success)
-        //                Log.d("GCM event", resultString);
-        //        }
-        //    });
-        //}
         downloadHelper.download(SensibleDataHelper.PRIVATE_SERVER_GCM_FILE_DIR + "?addKey=" + token +
                         "&version=" + String.valueOf(BuildConfig.VERSION_CODE),
                 SensibleDataHelper.PRIVATE_SERVER_USERNAME,
@@ -51,16 +41,6 @@ public class MyInstanceIDListenerService extends FirebaseInstanceIdService {
     public static void removeGCMServerData(String token, Context context) {
         DownloadHelper downloadHelper = new DownloadHelper(context);
         downloadHelper.FIXED_URL = SensibleDataHelper.PRIVATE_SERVER_GCM_PATH_DIR;
-        // no log needed. this works.
-        //if (BuildConfig.DEBUG) {
-        //    downloadHelper.addOnRecievedEvent(new DownloadHelper.OnRecievedEvent() {
-        //        @Override
-        //        public void recievedEvent(String resultString, String resultBase64, boolean success) {
-        //            if (success)
-        //                Log.d("GCM event", resultString);
-        //        }
-        //    });
-        //}
         downloadHelper.download(SensibleDataHelper.PRIVATE_SERVER_GCM_FILE_DIR + "?removeKey=" + token,
                 SensibleDataHelper.PRIVATE_SERVER_USERNAME,
                 SensibleDataHelper.PRIVATE_SERVER_PASSWORD);

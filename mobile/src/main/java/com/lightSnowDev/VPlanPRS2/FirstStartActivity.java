@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,44 +30,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.lightSnowDev.VPlanPRS2.helper.ProgressBarAnimationHelper;
 import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class FirstStartActivity extends Activity {
 
     private int page = 1;
-
-    public static String readFromAssetFile(String fileName, Context context) {
-        StringBuilder returnString = new StringBuilder();
-        InputStream fIn = null;
-        InputStreamReader isr = null;
-        BufferedReader input = null;
-        try {
-            fIn = context.getResources().getAssets()
-                    .open(fileName, Context.MODE_WORLD_READABLE);
-            isr = new InputStreamReader(fIn);
-            input = new BufferedReader(isr);
-            String line = "";
-            while ((line = input.readLine()) != null) {
-                returnString.append(line + "\n");
-            }
-        } catch (Exception e) {
-            e.getMessage();
-        } finally {
-            try {
-                if (isr != null)
-                    isr.close();
-                if (fIn != null)
-                    fIn.close();
-                if (input != null)
-                    input.close();
-            } catch (Exception e2) {
-                e2.getMessage();
-            }
-        }
-        return returnString.toString();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +42,8 @@ public class FirstStartActivity extends Activity {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            //getWindow().getDecorView().setSystemUiVisibility(
-            //        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            //                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-
         showFirstPage();
     }
 
@@ -103,12 +63,6 @@ public class FirstStartActivity extends Activity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.WHITE);
         }
-
-        //Animation Text welcome
-        //TextView hiText = (TextView) findViewById(R.id.firstStart_Page1_textView_firstExplanation);
-        //Animation fadein = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        //fadein.setFillAfter(true);
-        //hiText.startAnimation(fadein);
 
         //set button click
         Button fab = (Button) findViewById(R.id.button_weiter);
@@ -141,16 +95,15 @@ public class FirstStartActivity extends Activity {
             }
         });
 
-        //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Achtung");
-        //builder.setMessage("Dieses Programm ist eine BETA!\nEs funktioniert nicht alles, überall sind Bugs. Diese App sollte so NICHT im Alltag verwendet werden!");
-        //builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-        //    public void onClick(DialogInterface dialog, int id) {
-        //        //no code here
-        //    }
-        //});
-        //builder.show();
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Achtung");
+        builder.setMessage("Dieses Programm ist eine BETA!\nEs funktioniert nicht alles, überall sind Bugs. Diese App sollte so NICHT im Alltag verwendet werden!");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //no code here
+            }
+        });
+        builder.show();
     }
 
     private void showSecondPage() {
@@ -158,8 +111,8 @@ public class FirstStartActivity extends Activity {
         setHeaderText("Neuigkeiten");
         Button bttnTEST = (Button) findViewById(R.id.firstStart_Page2_Button_expandable);
 
-        ((TextView) findViewById(R.id.firstStart_Page2_secondText)).setText(readFromAssetFile("news_new.txt", this));
-        ((TextView) findViewById(R.id.firstStart_Page2_thirdText_expandable)).setText(readFromAssetFile("news_old.txt", this));
+        ((TextView) findViewById(R.id.firstStart_Page2_secondText)).setText(StorageHelper.readFromAssetFile("news_new.txt", this));
+        ((TextView) findViewById(R.id.firstStart_Page2_thirdText_expandable)).setText(StorageHelper.readFromAssetFile("news_old.txt", this));
 
         bttnTEST.setOnClickListener(new View.OnClickListener() {
 
@@ -221,6 +174,9 @@ public class FirstStartActivity extends Activity {
             });
             builder.show();
         } else {
+            //correkt
+            //todo: hide soft keyboard
+            //show next page
             animatePageTransition(R.id.firstStart_Page3_MainRelativeLayout, R.id.firstStart_Page4_firstFilter_MainRelativeLayout, 1);
             setHeaderText("Stunden filtern");
             loadSwitchFilter();
@@ -269,7 +225,7 @@ public class FirstStartActivity extends Activity {
                                     "Wenn Du in der Q12 bist, trage Q12 ein. In der Oberstufe gibt es keine 'Klassen' mehr." +
                                     "Hier werden alle Vertretungsstunden des Jahrgangs angezeigt.\n\n" +
                                     "Allgemeiner Tip: Wähle in der ersten Spalte ganz unten das 'Leerzeichen' aus. Nur so kannst Du z.B. Q12 korrekt eintragen.\n\n" +
-                                    "Solltest Du deine Klasse nicht finden, schreibe mir bitte eine E-Mail. Du findest die E-Mail Adresse später in der App bei 'Über diese App'. Oder du guckst im Play-Store nach meiner Webseite.")
+                                    "Solltest Du Deine Klasse nicht finden, schreibe mir bitte eine E-Mail: jonathan@lightsnowdev.com.")
                             .positiveText("Ok")
                             .show();
                 }
@@ -381,7 +337,6 @@ public class FirstStartActivity extends Activity {
         findViewById(pageTo).startAnimation(fadeIn);
 
         ProgressBar bar = (ProgressBar) findViewById(R.id.firstStart_progressBar);
-        //bar.setProgress(50);
         ProgressBarAnimationHelper anim = new ProgressBarAnimationHelper(bar, bar.getProgress(), bar.getProgress() + 17 * steps);
         bar.startAnimation(anim);
         page += steps;

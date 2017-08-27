@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:background="@color/material_drawer_selected"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/md_blue_grey_100">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!--custom:toggleWidth ist die Größe eines Switch buttons -->
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/fragment_termine_toggleSwitch_heute_morgen"
+                android:layout_width="165dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="4dp"
+                android:textSize="15sp"
+                custom:activeBgColor="@color/ColorPrimaryDark"
+                custom:activeTextColor="@android:color/white"
+                custom:inactiveBgColor="@android:color/white"
+                custom:inactiveTextColor="@android:color/black"
+                custom:separatorColor="@color/gray_very_light"
+                custom:textToggleLeft="Monat"
+                custom:textToggleRight="Woche"
+                custom:toggleWidth="80dp" />
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:id="@+id/fragment_termine_toggleSwitch_prev_next"
+                android:layout_width="85dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="4dp"
+                android:textSize="15sp"
+                custom:activeBgColor="@android:color/white"
+                custom:activeTextColor="@android:color/black"
+                custom:inactiveBgColor="@android:color/white"
+                custom:inactiveTextColor="@android:color/black"
+                custom:separatorColor="@color/gray"
+                custom:textToggleLeft="&lt;"
+                custom:textToggleRight="&gt;"
+                custom:toggleWidth="40dp" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cdcdcd">
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/fragment_termine_linearLayoutList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

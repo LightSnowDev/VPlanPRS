@@ -12,6 +12,7 @@ import com.lightSnowDev.VPlanPRS2.BuildConfig;
 import com.lightSnowDev.VPlanPRS2.FirstStartActivity;
 import com.lightSnowDev.VPlanPRS2.MainActivity;
 import com.lightSnowDev.VPlanPRS2.R;
+import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
 
 /**
  * Created by Jonathan on 29.08.2016.
@@ -40,8 +41,8 @@ public class fragmentAbout extends Fragment {
 
         ((TextView) getView().findViewById(R.id.fragmentAbout_version_history)).setText(
                 "Aktuelle Neuerungen:\n" +
-                        FirstStartActivity.readFromAssetFile("news_new.txt", this.getActivity()).replace("\n\n", "\n") + "\n" +
-                        FirstStartActivity.readFromAssetFile("news_old.txt", this.getActivity()).replace("\n\n", "\n")
+                        StorageHelper.readFromAssetFile("news_new.txt", this.getActivity()).replace("\n\n", "\n") + "\n" +
+                        StorageHelper.readFromAssetFile("news_old.txt", this.getActivity()).replace("\n\n", "\n")
         );
         ((TextView) getView().findViewById(R.id.fragmentAbout_version)).setText("Aktuelle Version: " +
                 BuildConfig.VERSION_NAME + " Build: " + BuildConfig.VERSION_CODE);

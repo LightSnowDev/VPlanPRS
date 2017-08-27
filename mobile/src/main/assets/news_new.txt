@@ -1,1 +1,7 @@
-1. Fehler behoben.
+﻿1. Aktuelle Schulnachrichten des Vertretungsplans werden angezeigt.
+2. Neues Design der Startseite.
+3. Terminplan der Schule hinzugefügt.
+4. Vertretungsplan lädt nun schneller.
+5. Einstellung hinzugefügt, um die aktuellen Schulnachrichten im Vertretungsplan auszublenden.
+6. Stundenplan & Busfahrplan zu den Verknüpfungen hinzugefügt.
+7. In Android O (8.0) wird das Icon nun korrekt angezeigt.
