@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lightSnowDev.VPlanPRS2.R;
-import com.lightSnowDev.VPlanPRS2.classes.Vertretungsstunde;
+import com.lightSnowDev.VPlanPRS2.classes.VertretungsStunde;
 import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
 
 /**
@@ -16,27 +16,33 @@ import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
  */
 public class VertretungsplanView extends RelativeLayout {
 
-    Vertretungsstunde vertretungsstunde;
-    OnClickListener listener = new OnClickListener() {
+    private VertretungsStunde vertretungsstunde;
+    private OnClickListener listener = new OnClickListener() {
         @Override
         public void onClick(View view) {
             if (findViewById(R.id.vertretungsplan_view_textView_moreInformation).getVisibility() == VISIBLE) {
                 findViewById(R.id.vertretungsplan_view_textView_moreInformation).setVisibility(GONE);
                 findViewById(R.id.vertretungsplan_view_textView_moreInformation2).setVisibility(VISIBLE);
                 ((ImageButton) findViewById(R.id.vplan_item_Button_expand)).setImageResource(R.drawable.ic_keyboard_arrow_up_black_48dp);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.vplan_item_Button_expand).getLayoutParams();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) (((ImageButton) findViewById(R.id.vplan_item_Button_expand)).getLayoutParams());
                 params.addRule(RelativeLayout.BELOW, R.id.LinearLayout_vertretungsplan_list);
             } else {
                 findViewById(R.id.vertretungsplan_view_textView_moreInformation).setVisibility(VISIBLE);
                 findViewById(R.id.vertretungsplan_view_textView_moreInformation2).setVisibility(GONE);
                 ((ImageButton) findViewById(R.id.vplan_item_Button_expand)).setImageResource(R.drawable.ic_keyboard_arrow_down_black_48dp);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.vplan_item_Button_expand).getLayoutParams();
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) (((ImageButton) findViewById(R.id.vplan_item_Button_expand)).getLayoutParams());
                 params.addRule(RelativeLayout.BELOW, R.id.LinearLayout_vertretungsplan_list);
             }
         }
     };
 
-    public VertretungsplanView(Vertretungsstunde vertretungsstunde, Activity activity) {
+    /**
+     * Erstelle Abhängig von einer VertretungsStunde dieses View.
+     *
+     * @param vertretungsstunde Datenquelle
+     * @param activity          Aktuelle Activity, in der alles angezeigt wird
+     */
+    public VertretungsplanView(VertretungsStunde vertretungsstunde, Activity activity) {
         super(activity);
         inflate(getContext(), R.layout.vertretungsplan_view_layout, this);
         this.vertretungsstunde = vertretungsstunde;
@@ -45,6 +51,13 @@ public class VertretungsplanView extends RelativeLayout {
         setSmallText();
     }
 
+    /**
+     * Erstelle mit das View mit einfachen Textbausteinen.
+     *
+     * @param infoText Beschreibungsstext
+     * @param datum    Datumgstext
+     * @param activity Aktuelle Activity, in der alles angezeigt wird
+     */
     public VertretungsplanView(String infoText, String datum, Activity activity) {
         super(activity);
         inflate(getContext(), R.layout.vertretungsplan_view_layout, this);
@@ -59,8 +72,10 @@ public class VertretungsplanView extends RelativeLayout {
         findViewById(R.id.vplan_layout).setBackgroundColor(Color.argb(255, 237, 223, 24));
     }
 
+    /**
+     * Setze abhängig vom Typ der Stunde die richtigen Textbausteine.
+     */
     private void setSmallText() {
-        // check the type of the stunde
         TextView textView = (TextView) findViewById(R.id.vertretungsplan_view_textView_headline);
         if (vertretungsstunde.stundeIsNotHappening())
             textView.setText("Ausfall");
@@ -75,7 +90,7 @@ public class VertretungsplanView extends RelativeLayout {
 
         if (!StorageHelper.loadBooleanFromSharedPreferences(StorageHelper.VPLAN_USER_KLASSE_FILTER, getContext())) {
             String klassenName = vertretungsstunde.getKlassenString();
-            if (!Vertretungsstunde.isNullOrWhitespace(vertretungsstunde.getKlassenString()))
+            if (!VertretungsStunde.isNullOrWhitespace(vertretungsstunde.getKlassenString()))
                 textView.setText(vertretungsstunde.getKlassenString() + "\n" + textView.getText());
         }
 
@@ -94,7 +109,7 @@ public class VertretungsplanView extends RelativeLayout {
                 textView2.setText(textView2.getText() + "\nNeuer Raum: " + vertretungsstunde.getNeuerRaum());
         }
 
-        if (!Vertretungsstunde.isNullOrWhitespace(vertretungsstunde.getStunden()))
+        if (!VertretungsStunde.isNullOrWhitespace(vertretungsstunde.getStunden()))
             textView2.setText(vertretungsstunde.getStunden() + " Stunde\n" + textView2.getText());
 
         if (!vertretungsstunde.vertretungsTextIsEmpty()) {

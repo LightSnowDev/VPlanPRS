@@ -35,7 +35,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Solltest Du Fragen oder weitere Hilfe brauchen, sende eine E-Mail an Jonathan@lightsnowdev.com"
+                        android:text="Solltest Du Fragen haben oder Hilfe mit irgendetwas brauchen, sende einfach eine E-Mail an:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:id="@+id/fragment_help_email_adress_textView"
+                        android:text="jonathan@lightsnowdev.com"
                         android:textSize="14sp" />
 
 
@@ -50,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Schreib mir am Besten eine E-Mail und frag nach."
+                        android:text="Schreib mir am Besten eine E-Mail und frag."
                         android:textSize="14sp" />
 
                     <TextView
@@ -71,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Wo finde ich die 'Allgemeinen Nachrichten' oder die Klausuren der Schule?"
+                        android:text="Wo finde ich die Allgemeinen Nachrichten oder die Klausuren der Schule?"
                         android:textColor="@color/cardview_dark_background"
                         android:textSize="16sp" />
 
@@ -92,8 +100,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Die App versucht in keinster Weise besondere personenbezogene Daten zu erheben. Die einzigen Daten, die erfasst und verschickt werden, sind: 1. App Versionsnummer, 2. letztes Öffnen der App, 3 Klassenname. Diese Informationen sind nötig, damit die App richtig funktionieren kann."
+                        android:text="Die App versucht in keinster Weise besondere personenbezogene Daten zu erheben. Die einzigen Daten, die erfasst und verschickt werden, sind: 1. App Versionsnummer, 2. letztes Öffnen der App, 3 Klassenname. Diese Informationen sind nötig, damit die App richtig funktionieren kann. Du kannst Dir die ganze Datenschutzerklärung hier durchlesen:"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fragment_help_impressum_textView"
+                        android:textColor="@color/blue"
+                        android:text="https://lightsnowdev.com/impressum_ger.html"
+                        android:textSize="14sp" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -144,7 +161,7 @@ Solltest Du deine Klasse nicht finden, schreibe mir bitte eine E-Mail."
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nein. Apple verlangt hohe Gebüren, damit man Apps im App-Store betreiben kann. Zusätzlich dazu macht es Apple einem nicht leicht für iOs zu programmieren. Es wird daher sicher keine iOS Version geben."
+                        android:text="Nein. Apple verlangt hohe Gebüren, damit man Apps im App-Store betreiben kann. Zusätzlich dazu macht es Apple einem nicht leicht für iOS zu programmieren. Es wird daher sicher keine iOS Version geben."
                         android:textSize="14sp" />
 
 

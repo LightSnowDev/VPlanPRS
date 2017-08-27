@@ -1,6 +1,7 @@
 package com.lightSnowDev.VPlanPRS2.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
@@ -8,12 +9,32 @@ import com.lightSnowDev.VPlanPRS2.helper.StorageHelper;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
+ * Im html Code der PRS-Webseite sind die Eigenschaften einer Stunde folgend geordnet:
+ * 0. Klasse(n)
+ * 1. Std.
+ * 2. Vertreter
+ * 3. Raum
+ * 4. (Lehrer)
+ * 5. Vertretungs-Text
+ * 6. (Fach)
+ * 7. (Klasse(n))
+ * <p>
+ * Diese Java-Klasse ordnet jedoch folgendermaßen:
+ * 1. Klassen
+ * 2. Stunden
+ * 3. neuer Lehrer
+ * 4. neuer Raum
+ * 5. alter Raum
+ * 6. alter Lehrer
+ * 7. Vertretungstext
+ * <p>
  * Created by Jonathan Schwarzenböck on 06.01.2016.
  */
-public class Vertretungsstunde {
+public class VertretungsStunde implements Comparable<VertretungsStunde> {
 
     private String neuerLehrer;
     private String alterLehrer;
@@ -24,13 +45,11 @@ public class Vertretungsstunde {
     private String vertretungstext;
     private String fach;
     private boolean isSchulnachrichten = false;
-    private Tag tag;
 
-    public Vertretungsstunde(String Klassen, String Stunden,
+    public VertretungsStunde(String Klassen, String Stunden,
                              String neuerLehrer, String neuerRaum,
                              String alterRaum, String alterLehrer,
-                             String Vertretungstext, String Fach,
-                             Tag tag) {
+                             String Vertretungstext, String Fach) {
         try {
             this.neuerLehrer = neuerLehrer;
             this.alterLehrer = alterLehrer;
@@ -40,15 +59,12 @@ public class Vertretungsstunde {
             this.neuerRaum = neuerRaum;
             this.vertretungstext = Vertretungstext;
             this.fach = Fach;
-            this.tag = tag;
         } catch (Exception e) {
-            throw new RuntimeException("Error #100: Fehlerhafte Daten.");
+            throw new RuntimeException("Error #VSt100: Fehlerhafte Daten.");
         }
     }
 
-    public Vertretungsstunde(Element e, Tag tag) {
-        //in html:  0.Klasse(n)	1. Std.	2.Vertreter	3.Raum	 4.(Raum)	5.(Lehrer)	6.Vertretungs-Text	7.(Fach)	8.(Klasse(n))
-        //in klasse: (String Klassen, String Stunden, String neuerLehrer, String neuerRaum, String alterRaum, String alterLehrer, String Vertretungstext, String Fach)
+    public VertretungsStunde(Element e) {
         this(e.child(0).text(),
                 e.child(1).text(),
                 e.child(2).text(),
@@ -56,22 +72,15 @@ public class Vertretungsstunde {
                 e.child(4).text(),
                 e.child(5).text(),
                 e.child(6).text(),
-                e.child(7).text(),
-                tag);
+                e.child(7).text());
     }
 
-    public Vertretungsstunde(String Klassen, String Stunden,
-                             String neuerLehrer, String neuerRaum,
-                             String alterRaum, String alterLehrer,
-                             String Vertretungstext, String Fach,
-                             String tag) {
-        this(Klassen, Stunden, neuerLehrer, neuerRaum, alterRaum, alterLehrer, Vertretungstext, Fach,
-                Tag.valueOf(tag));
-    }
+    public VertretungsStunde(String compact) {
+        if (compact == null || compact.trim().isEmpty())
+            throw new RuntimeException("Error #VSt101: Fehlerhafte Daten.");
 
-    public Vertretungsstunde(String compact) {
         try {
-            String[] splitComapct = compact.split(StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS);
+            String[] splitComapct = compact.split(StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN);
             this.klassen = parseKlassen(splitComapct[0]);
             this.stunden = splitComapct[1];
 
@@ -84,30 +93,29 @@ public class Vertretungsstunde {
             this.vertretungstext = splitComapct[6];
             this.fach = splitComapct[7];
 
-            this.tag = Tag.valueOf(splitComapct[8]);
         } catch (Exception e) {
-            throw new RuntimeException("Error #100: Fehlerhafte Daten.");
+            throw new RuntimeException("Error #VSt102: Fehlerhafte Daten.");
         }
     }
 
-    public static Vertretungsstunde.Tag getVertretungsstundeTagFromString(String input) {
+    public static VertretungsTag.Day getVertretungsstundeTagFromString(String input) {
         if (input.equals("heute"))
-            return Tag.heute;
+            return VertretungsTag.Day.heute;
         else if (input.equals("morgen"))
-            return Tag.morgen;
+            return VertretungsTag.Day.morgen;
         else if (input.equals("beide"))
-            return Tag.beide;
+            return VertretungsTag.Day.beide;
         else
             return null;
     }
 
-    public static boolean areVertretungsstundenTheSame(List<Vertretungsstunde> v1, List<Vertretungsstunde> v2) {
+    public static boolean areVertretungsstundenTheSame(List<VertretungsStunde> v1, List<VertretungsStunde> v2) {
         // Optional quick test since size must match
         if (v1.size() != v2.size()) {
             return false;
         }
-        for (Vertretungsstunde stunde1 : v1) {
-            for (Vertretungsstunde stunde2 : v2) {
+        for (VertretungsStunde stunde1 : v1) {
+            for (VertretungsStunde stunde2 : v2) {
                 if (!stunde1.toString().equals(stunde2.toString())) {
                     return false;
                 }
@@ -144,26 +152,8 @@ public class Vertretungsstunde {
         }
     }
 
-    @Override
-    public String toString() {
-        // Die tag = "" default eigenschaft wurde ohne wissen eingefügt. Sie könnte fehler produzieren.
-        // Vorher war nur "tag.toString()" vorhanden und hat somit nullpointer exceptions geworfen.
-        String tagString = "";
-        if (tag != null)
-            tagString = tag.toString();
-        return getKlassenString() + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                stunden + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                neuerLehrer + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                neuerRaum + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                alterRaum + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                alterLehrer + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                vertretungstext + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                fach + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_DETAILS +
-                tagString;
-    }
-
-    /*
-     * Does this Vertretungsstunde affect inputKlasse?
+    /**
+     * Does this VertretungsStunde affect inputKlasse?
      */
     public boolean matchesKlasse(String inputKlasse) {
         for (String klasse : klassen) {
@@ -176,6 +166,8 @@ public class Vertretungsstunde {
 
     public String getKlassenString() {
         if (klassen.isEmpty())
+            return "";
+        else if (klassen.size() == 1 && isNullOrWhitespace(klassen.get(0)))
             return "";
         else
             return TextUtils.join(",", klassen);
@@ -211,8 +203,10 @@ public class Vertretungsstunde {
         return onlyWhitespace;
     }
 
-    /*
+    /**
      * Abkürzung eines Faches in den Namen konvertieren.
+     *
+     * @return Der ganze Name des Faches.
      */
     public String getRealFachName() {
         // @formatter:off
@@ -221,6 +215,10 @@ public class Vertretungsstunde {
                 return "Englisch";
             case "PHY":
                 return "Physik";
+            case "PHYB":
+                return "Physik B-LK";
+            case "PHYL":
+                return "Physik LK";
             case "DEU":
                 return "Deutsch";
             case "POW":
@@ -253,6 +251,8 @@ public class Vertretungsstunde {
                 return "Kunst LK";
             case "ENGL":
                 return "Englisch LK";
+            case "ENGB":
+                return "Englisch B-LK";
             case "DEUL":
                 return "Deutsch LK";
             case "GESL":
@@ -275,9 +275,21 @@ public class Vertretungsstunde {
                 return "Chemie B-LK";
             case "INF":
                 return "Informatik";
-            //... needs more subjects
+            case "MUS":
+                return "Musik";
+            case "KTR":
+                return "Kat. Religion";
+            case "SWI":
+                return "Schwimmen";
+            case "AUS":
+                return "Auszeitraum";
+            case "Wahl":
+                return "Wahlfach";
+            case "DSP":
+                return "Darstellendes Spiel";
             case "":
                 return "";
+            //... needs more subjects
             default:
                 return fach;
         }
@@ -393,6 +405,8 @@ public class Vertretungsstunde {
                 return "Hedderich-Cöster (HC)";
             case "HM":
                 return "Heilmann (HM)";
+            case "HY":
+                return "Heyse (HY)";
             case "HS":
                 return "Heß (HS)";
             case "HO":
@@ -404,7 +418,7 @@ public class Vertretungsstunde {
             case "JK":
                 return "Jakob (JK)";
             case "JH":
-                return "JostvonHayn (JH)";
+                return "Jost von Hayn (JH)";
             case "HEL":
                 return "Jung (HEL)";
             case "KB":
@@ -483,6 +497,8 @@ public class Vertretungsstunde {
                 return "Pflanzl (P)";
             case "PA":
                 return "Piecha (PA)";
+            case "PK":
+                return "Piorreck (PK)";
             case "PH":
                 return "Plüntsch (PH)";
             case "PS":
@@ -521,6 +537,8 @@ public class Vertretungsstunde {
                 return "Schott (SO)";
             case "SDR":
                 return "Schröder (SDR)";
+            case "SEN":
+                return "Schünemann (SEN)";
             case "SLG":
                 return "Seeling (SLG)";
             case "SA":
@@ -556,7 +574,9 @@ public class Vertretungsstunde {
             case "VT":
                 return "Vogt (VT)";
             case "VL":
-                return "vonLüde (VL)";
+                return "von Lüde (VL)";
+            case "VO":
+                return "Vornholt (VO)";
             case "WE":
                 return "Weber (WE)";
             case "WG":
@@ -627,6 +647,45 @@ public class Vertretungsstunde {
         return fach;
     }
 
-    public enum Tag {heute, morgen, beide}
+    @Override
+    public int compareTo(VertretungsStunde anotherStunde) {
+        /*
+        //Check if first char is a number
+        String temp = this.toString();
+        if (getKlassenString().trim().equals("") && !anotherStunde.getKlassenString().trim().equals(""))
+            return 1;
+        if (!getKlassenString().trim().equals("") && anotherStunde.getKlassenString().trim().equals(""))
+            return -1;
+        if (getKlassenString().matches("[0-9].*") && Character.isLetter(anotherStunde.getKlassenString().charAt(0))
+                || anotherStunde.getKlassenString().matches("[0-9].*") && Character.isLetter(getKlassenString().charAt(0))) {
+            if (getKlassenString().substring(0, 1).equals("Q") && !anotherStunde.getKlassenString().substring(0, 1).equals("Q"))
+                return 1;
+            else if (!getKlassenString().substring(0, 1).equals("Q") && anotherStunde.getKlassenString().substring(0, 1).equals("Q"))
+                return -1;
+            return getKlassenString().substring(0, 1).compareTo(anotherStunde.getKlassenString().substring(0, 1));
+        }
+        if (getKlassenString().length() > 0 && anotherStunde.getKlassenString().length() < 0) {
+            if (getKlassenString().substring(0, 1).equals("Q") && anotherStunde.getKlassenString().substring(0, 1).equals("I"))
+                return -1;
+            else if (getKlassenString().substring(0, 1).equals("I") && anotherStunde.getKlassenString().substring(0, 1).equals("Q"))
+                return 1;
+        }
+        */
 
+        return -1 * anotherStunde.toString().compareTo(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        // Die tag = "" default eigenschaft wurde ohne wissen eingefügt. Sie könnte fehler produzieren.
+        // Vorher war nur "tag.toString()" vorhanden und hat somit nullpointer exceptions geworfen.
+        return getKlassenString() + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                stunden + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                neuerLehrer + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                neuerRaum + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                alterRaum + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                alterLehrer + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                vertretungstext + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN +
+                fach + StorageHelper.SPLIT_SYMBOL_VERTRETUNGSSTUNDE_EIGENSCHAFTEN;
+    }
 }

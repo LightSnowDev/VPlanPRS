@@ -28,4 +28,38 @@
              launch this shortcut. -->
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/bus_shortcut"
+        android:shortcutDisabledMessage="@string/shortcut_morgen_disabled"
+        android:shortcutId="busfahrplanShortcut"
+        android:shortcutLongLabel="@string/shortcut_busfahrplan_long"
+        android:shortcutShortLabel="@string/shortcut_busfahrplan_short">
+        <intent
+            android:action="android.intent.action.busfahrplan"
+            android:targetClass="com.lightSnowDev.VPlanPRS2.MainActivity"
+            android:targetPackage="com.lightSnowDev.VPlanPRS2" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list is what the user sees when they
+             launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/stundenplan_shortcut"
+        android:shortcutDisabledMessage="@string/shortcut_stundenplan_disabled"
+        android:shortcutId="stundenplanShortcut"
+        android:shortcutLongLabel="@string/shortcut_stundenplan_long"
+        android:shortcutShortLabel="@string/shortcut_stundenplan_short">
+        <intent
+            android:action="android.intent.action.stundenplan"
+            android:targetClass="com.lightSnowDev.VPlanPRS2.MainActivity"
+            android:targetPackage="com.lightSnowDev.VPlanPRS2" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list is what the user sees when they
+             launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
 </shortcuts>

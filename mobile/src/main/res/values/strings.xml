@@ -69,4 +69,12 @@
     <string name="shortcut_morgen_short">V-Plan morgen</string>
     <string name="shortcut_morgen_disabled">morgen deaktiviert</string>
 
+    <string name="shortcut_busfahrplan_long">Busfahrplan</string>
+    <string name="shortcut_busfahrplan_short">Bus</string>
+    <string name="shortcut_busfahrplan_disabled">Busfahrplan deaktiviert</string>
+
+    <string name="shortcut_stundenplan_long">Stundenplan</string>
+    <string name="shortcut_stundenplan_short">Std.plan</string>
+    <string name="shortcut_stundenplan_disabled">Stundenplan deaktiviert</string>
+
 </resources>

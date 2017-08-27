@@ -95,12 +95,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Die App basiert auf folgenden Programmen:\n
-   * firebase-messaging\n
-   * firebase-analytics\n
-   * okhttp3\n
-   * afollestad.material-dialogs\n
-   * jsoup\n
-   * mikepenz:materialdrawer"
+  * firebase-messaging\n
+  * firebase-analytics\n
+  * okhttp3\n
+  * afollestad.material-dialogs\n
+  * jsoup\n
+  * mikepenz:materialdrawer\n
+  * us.belka:androidtoggleswitch"
                         android:textSize="14sp" />
 
                     <TextView

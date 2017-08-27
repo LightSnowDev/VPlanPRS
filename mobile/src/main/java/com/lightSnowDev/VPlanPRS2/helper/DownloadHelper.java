@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Base64;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,13 +111,11 @@ public class DownloadHelper {
     private OkHttpClient setUsualVariables(String url) {
         OkHttpClient client;
         if (url.isEmpty())
-            throw new RuntimeException("No URL path specified.");
+            throw new RuntimeException("Error #DH100: No URL path specified.");
         if (showprogressDialogBoolean)
             showProgressDialog(currentActivity);
 
         ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                .tlsVersions(TlsVersion.TLS_1_0)
-                .cipherSuites(CipherSuite.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA)
                 .supportsTlsExtensions(true)
                 .build();
 
@@ -185,14 +184,19 @@ public class DownloadHelper {
             }
         }
 
-        // Put the download in a async download queue.
+        // Put the download in a async download-queue.
         // Start the download.
         // onCallback specifies the response events.
         client.newCall(requestB.build()).enqueue(onCallback);
+
     }
 
     public void setRunOnUiThread(boolean b) {
         runOnUiThread = b;
+    }
+
+    public void setFIXED_URL(String FIXED_URL) {
+        this.FIXED_URL = FIXED_URL;
     }
 
     //region /// ProgressDialog ... ///

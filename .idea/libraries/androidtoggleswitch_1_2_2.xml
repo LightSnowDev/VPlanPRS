@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="androidtoggleswitch-1.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/8b8858ac7b9804525182cbf431ffa40e05b72793/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/8b8858ac7b9804525182cbf431ffa40e05b72793/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/us.belka/androidtoggleswitch/1.2.2/5267218d2f45a9ec08bcb7a9c910771146a52da5/androidtoggleswitch-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
